@@ -1,0 +1,81 @@
+label {
+    margin: 0;
+    position: relative;
+    display: inline-block;
+    z-index: 8;
+}
+
+label:after {
+    margin: 0;
+    content: '▼';
+    position: absolute;
+    width: 34px;
+    color: #999;
+    font-weight: bold;
+    font-size: 16px;
+    right: -6px;
+    bottom: 2px;
+    pointer-events: none;
+    z-index: 9;
+	font-family: 'Raleway', sans-serif;
+}
+
+label:before {
+    margin: 0;
+    content: '';
+    right: 2px;
+    top: 0px;
+    width: 34px;
+    height: 28px;
+    background: #242424;
+    position: absolute;
+    pointer-events: none;
+    display: block;
+    z-index: 8;
+}
+
+label select {
+    margin: 0;
+    position: relative;
+    width: 232px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: #111;
+    color: #848484;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    cursor: pointer;
+    height: 28px;
+}
+
+select {
+    margin:40px;
+    background: #030303;
+    color:#404040;
+    text-shadow:0 1px 0 rgba(0,0,0,0.4);
+    padding-left: 5px;
+    border-color: transparent;
+    border: 0;
+    outline: 0;
+}
+
+select:-moz-focusring {
+    color: transparent;
+    text-shadow: 0 0 0 #000;
+}
+
+option:not(:checked) { 
+    background: #101010;
+    color:#949494;
+}
+select option {
+  background: #000; 
+  box-shadow: inset 20px 20px #161616;
+} 
+
+select option:hover {
+  color: #DDD; 
+  box-shadow: inset 20px 20px #242424;
+}
