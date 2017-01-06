@@ -1184,6 +1184,18 @@ namespace EEScript.Interpreter
                 return true;
             }));
 
+            // everywhere within the rectangle (TL/BR) (#,#) - (#,#),
+            Page.SetTriggerHandler(new Trigger(TriggerCategory.Area, 802), new TriggerHandler((trigger, player, args) => {
+                trigger.Area = new Area();
+
+                var rectangle = new Rectangle(new BotBits.Point(trigger.GetInt(0), trigger.GetInt(1)), new BotBits.Point(trigger.GetInt(2), trigger.GetInt(3)));
+
+                for (var i = rectangle.Left; i < rectangle.Right; i++)
+                    for (var j = rectangle.Top; j < rectangle.Bottom; j++)
+                        trigger.Area.Points.Add(new Point(i, j));
+
+                return true;
+            }));
             #endregion
 
             #region Effect
@@ -1362,6 +1374,25 @@ namespace EEScript.Interpreter
             // place a background block # at (#,#).
             Page.SetTriggerHandler(new Trigger(TriggerCategory.Effect, 257), new TriggerHandler((trigger, player, args) => {
                 Blocks.Of(Client).Place(trigger.GetInt(1), trigger.GetInt(2), (Background.Id)trigger.GetInt(0));
+
+                return true;
+            }));
+
+            // copy the block(s) offset to (#,#).
+            Page.SetTriggerHandler(new Trigger(TriggerCategory.Effect, 258), new TriggerHandler((trigger, player, args) => {
+                if (trigger.Area == null)
+                    return false;
+
+                foreach (var point in trigger.Area.Points) {
+                    var block = Blocks.Of(Client).FirstOrDefault(b => b.X == point.X && b.Y == point.Y);
+
+                    if (block.Background.Block != null) {
+                        Blocks.Of(Client).Place(block.X + trigger.GetInt(0), block.Y + trigger.GetInt(1), block.Background.Block);
+                    }
+                    if (block.Foreground.Block != null) {
+                        Blocks.Of(Client).Place(block.X + trigger.GetInt(0), block.Y + trigger.GetInt(1), block.Foreground.Block);
+                    }
+                }
 
                 return true;
             }));
