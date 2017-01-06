@@ -1,4 +1,5 @@
 # EEScript
+[![Build status](https://ci.appveyor.com/api/projects/status/y0efuvgnonuh7l9w?svg=true)](https://ci.appveyor.com/project/atillabyte/eescript)
 [![License](https://img.shields.io/github/license/atillabyte/EEScript.svg?label=License&maxAge=86400)](./LICENSE.txt)
 
 EEScript is a purely functional scripting language that aims to be incredibly easy for non-programmers to pick up and learn.
