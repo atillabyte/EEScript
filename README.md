@@ -8,19 +8,17 @@ EEScript is a purely functional scripting language that aims to be incredibly ea
 There are a few different types of triggers, we'll cover the basics first.
 
 Everybody Edits Scripts are created by combining different trigger types, causes, conditions, areas, filters and effects.
+
 You can combine these trigger types to form chunks of script that can be used to automate actions within your worlds.
 
 A simple line of EEScript translates in common terms like this:
-
-  _"If this happens, do this."_
+> _"If this happens, do this."_
 
 A slightly more complex example would be, 
-
-  _"If this happens, and this condition is true, then do this."_
+> _"If this happens, and this condition is true, then do this."_
 
 Whereas the most complicated example would something like,
- 
-  _"If this happens, and this condition is true, then in this area, but only where this other condition is true, do this."_
+> _"If this happens, and this condition is true, then in this area, but only where this other condition is true, do this."_
 
 ## Trigger Categories
 
