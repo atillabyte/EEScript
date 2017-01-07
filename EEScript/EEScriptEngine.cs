@@ -28,7 +28,10 @@ namespace EEScript
         private Options _options;
         internal List<Page> _pages;
 
+        public List<Page> Pages => _pages;
         public Options Options => _options;
+        internal Parser Parser => _parser;
+        internal Lexer Lexer => (Lexer)_lexer;
 
         public EEScriptEngine(Options options = null)
         {

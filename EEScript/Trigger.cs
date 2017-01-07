@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 namespace EEScript
 {
+    using System.Text.RegularExpressions;
+    using EEScript.Lexical;
     using Enums;
 
     public class Trigger : IEquatable<Trigger>
@@ -59,6 +61,21 @@ namespace EEScript
                     case VariableType.Private:
                         content = this.Page.VariableHandler(this, variable.Key);
                         break;
+                }
+            }
+
+            // seek and replace variables in string
+            if (content is string) {
+                foreach(var privateVariableRegex in ((Lexer)this.Page.Engine.Lexer).TokenDefinitions.Where(x => x.Type == TokenType.PrivateVariable)) {
+                    foreach (Match match in privateVariableRegex.Regex.Matches((string)content)) {
+                        content = ((string)content).Replace(match.Value, this.Page.VariableHandler(this, match.Value.Remove(0, 1)).ToString());
+                    }
+                }
+
+                foreach (var globalVariableRegex in ((Lexer)this.Page.Engine.Lexer).TokenDefinitions.Where(x => x.Type == TokenType.GlobalVariable)) {
+                    foreach (Match match in globalVariableRegex.Regex.Matches((string)content)) {
+                        content = ((string)content).Replace(match.Value, this.Page.VariableHandler(this, match.Value.Remove(0, 1)).ToString());
+                    }
                 }
             }
 

@@ -315,7 +315,16 @@ namespace EEScript.Interpreter
         public static void On(HideKeyEvent e)
         {
             // Whenever someone touches a key,
-            Page.Execute(e.Player, e, 110);
+            switch (e.Key) {
+                case Key.Blue:
+                case Key.Cyan:
+                case Key.Green:
+                case Key.Magenta:
+                case Key.Red:
+                case Key.Yellow:
+                    Page.Execute(e.Player, e, 110);
+                    break;
+            }
         }
 
         [EventListener]
@@ -1053,6 +1062,7 @@ namespace EEScript.Interpreter
             #endregion
 
             #region Area
+
             // everywhere in the entire world,
             Page.SetTriggerHandler(new Trigger(TriggerCategory.Area, 64), new TriggerHandler((trigger, player, args) => {
                 trigger.Area = new Area();
@@ -1198,6 +1208,7 @@ namespace EEScript.Interpreter
 
                 return true;
             }));
+
             #endregion
 
             #region Filter
@@ -1245,7 +1256,9 @@ namespace EEScript.Interpreter
                 if (area == null)
                     return false;
 
-                area.Points = area.Points.Where(b => Blocks.Of(Client).Foreground.Any(x => x.Location.X == b.X && x.Location.Y == b.Y && x.Data.Block.Id == (Foreground.Id)trigger.GetInt(0))).ToList();
+                area.Points = area.Points.Where(b => Blocks.Of(Client).Foreground.Any(x => x.Location.X == b.X && x.Location.Y == b.Y &&
+                                                    x.Data.Block.Id == (Foreground.Id)trigger.GetInt(0))).ToList();
+
                 return true;
             }));
 
@@ -1257,7 +1270,10 @@ namespace EEScript.Interpreter
                 if (area == null)
                     return false;
 
-                area.Points = area.Points.Where(b => Blocks.Of(Client).Background.Any(x => x.Location.X == b.X && x.Location.Y == b.Y && x.Data.Block.Id == (Background.Id)trigger.GetInt(0))).ToList();
+                area.Points = area.Points.Where(b => Blocks.Of(Client).Background.Any(
+                                                    x => x.Location.X == b.X && x.Location.Y == b.Y &&
+                                                    x.Data.Block.Id == (Background.Id)trigger.GetInt(0))).ToList();
+
                 return true;
             }));
 
@@ -1271,6 +1287,7 @@ namespace EEScript.Interpreter
 
                 area.Points = area.Points.Where(b => Blocks.Of(Client).Foreground.Any(x => x.Location.X == b.X && x.Location.Y == b.Y) || 
                                                      Blocks.Of(Client).Background.Any(x => x.Location.X == b.X && x.Location.Y == b.Y)).ToList();
+
                 return true;
             }));
 
@@ -1282,8 +1299,10 @@ namespace EEScript.Interpreter
                 if (area == null)
                     return false;
 
-                area.Points = area.Points.Where(b => !Blocks.Of(Client).Foreground.Any(x => x.Location.X == b.X && x.Location.Y == b.Y) &&
-                                                     !Blocks.Of(Client).Background.Any(x => x.Location.X == b.X && x.Location.Y == b.Y)).ToList();
+                area.Points = area.Points.Where(b => Blocks.Of(Client).Where(x => x.X == b.X && x.Y == b.Y &&
+                                                                             x.Foreground.Block.Id == 0 &&
+                                                                             x.Background.Block.Id == 0).Any()).ToList();
+
                 return true;
             }));
 

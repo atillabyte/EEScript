@@ -10,7 +10,7 @@ namespace EEScript
         private List<List<Trigger>> TriggerBlocks { get; set; }
         private Dictionary<Trigger, TriggerHandler> Handlers { get; set; }
 
-        private EEScriptEngine Engine { get; set; }
+        internal EEScriptEngine Engine { get; set; }
 
         /// <summary>
         /// A list of variables set globally accessible to any Trigger.
@@ -95,19 +95,15 @@ namespace EEScript
                     return;
             }
 
+            foreach (var t in triggerBlock)
+                t.TriggeringEntity = triggeringEntity;
+
             // check if there is any additional conditions to evaluate
             for (var i = 1; i < triggerBlock.Count; i++) {
                 var trigger = triggerBlock[i];
 
                 // set the current page for variable handling
                 trigger.Page = this;
-
-                // check for valid sequence structure, should always be consecutive
-                if (i + 1 <= triggerBlock.Count - 1) {
-                    if (triggerBlock[i + 1].Category < trigger.Category) {
-                        throw new EEScriptException("Invalid TriggerBlock structure; the trigger sequence must be consecutive.");
-                    }
-                }
 
                 switch (trigger.Category) {
                     case TriggerCategory.Cause:
@@ -140,6 +136,8 @@ namespace EEScript
                         triggerBlock.Last().Filters.Add(trigger);
                         break;
                     case TriggerCategory.Effect:
+                        if (!this.Handlers.ContainsKey(trigger))
+                            throw new EEScriptException("You do not have a handler for this trigger.", trigger);
 
                         trigger.TriggeringEntity = triggeringEntity;
                         trigger.Area = triggerBlock.LastOrDefault(x => x.Category == TriggerCategory.Area)?.Area ?? new Area();

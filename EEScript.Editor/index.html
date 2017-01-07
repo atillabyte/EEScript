@@ -9,6 +9,9 @@
 	var spawn = require('cross-spawn');
 	var shell = require('electron').shell;
 	
+	// EEScript Version
+	var version = 'v1.0.5';
+	
 	require('electron').webFrame.setZoomFactor(1.2);
 	
 	//open links externally by default
@@ -309,10 +312,8 @@
 	<div id="statusbar">
 		EEScript Editor
 	</div>
-	<script>
-	   // EEScript Version
-	   var version = 'v1.0.3';
-	</script> <!-- load ace -->
+	
+	<!-- load ace -->
 	<script src="js/ace/src/ace.js">
 	</script> <!-- load ace statusbar extension -->
 	<script src="js/ace/src/ext-statusbar.js">
