@@ -7,8 +7,15 @@
 	var dialog = app.dialog;
 	var fs = require('fs');
 	var spawn = require('cross-spawn');
-
+	var shell = require('electron').shell;
+	
 	require('electron').webFrame.setZoomFactor(1.2);
+	
+	//open links externally by default
+	$(document).on('click', 'a[href^="http"]', function(event) {
+		event.preventDefault();
+		shell.openExternal(this.href);
+	});
 	</script>
 	
 	<meta charset="UTF-8">
@@ -181,6 +188,10 @@
 	       input::-webkit-input-placeholder {
 	         color: #333;
 	       }
+		   
+		   a {
+			 color: #999;
+		   }
 	</style>
 </head>
 
@@ -198,7 +209,7 @@
 			</option>
 
 			<option value='difficulty-advanced'>
-				Advanced (areas)
+				Advanced (areas/filters)
 			</option>
 
 			<option value='difficulty-expert'>
@@ -224,7 +235,12 @@
 				<a href="#" title="tab-areas">Areas</a>
 			</li>
 
+			
+			<li>
+				<a href="#" title="tab-filters">Filters</a>
+			</li>
 
+			
 			<li>
 				<a href="#" title="tab-effects">Effects</a>
 			</li>
@@ -254,7 +270,13 @@
 				</select>
 			</div>
 
+			
+			<div class='tab-content' id="tab-filters">
+				<select class="listbox" id="listbox-filters" size="4">
+				</select>
+			</div>
 
+			
 			<div class='tab-content' id="tab-effects">
 				<select class="listbox" id="listbox-effects" size="4">
 				</select>
@@ -289,7 +311,7 @@
 	</div>
 	<script>
 	   // EEScript Version
-	   var version = 'v1.0.0';    
+	   var version = 'v1.0.2';
 	</script> <!-- load ace -->
 	<script src="js/ace/src/ace.js">
 	</script> <!-- load ace statusbar extension -->
@@ -313,12 +335,12 @@
 	   });
 
 	   editor.setValue(
-	`* Everybody Edits Script ` + version +
-	`
-	* New Everybody Edits Script
-	* Created by 
+`* Everybody Edits Script ` + version +
+`
+* New Everybody Edits Script
+* Created by 
 
-	`);
+`);
 	   editor.clearSelection();
 	   
 	   editor.commands.addCommand({
@@ -449,11 +471,22 @@
 	       });
 	       
 	       $("#options-themes").change();
+		   
+		   $.ajax({
+			   type: "GET",
+			   url: "https://cdn.rawgit.com/atillabyte/EEScript/master/config.json",
+			   success: function(response) {
+			        if (response.currentVersion != version) {
+						$("#statusbar").html("EEScript Editor - New Version Available! " + '(<a href="' + response.projectHomePage + '">Project Homepage</a>)');
+					}
+			   },
+			   dataType: "json"
+		   });
 	       
 	       // add triggers from json
 	       $.ajax({
 	           type: "GET", 
-	           url: 'https://gist.githubusercontent.com/atillabyte/96dc2b85889c5557d858446e05ee427c/raw/EEScript.json',
+	           url: 'https://cdn.rawgit.com/atillabyte/EEScript/master/triggers.json',
 	           success: function(response) {
 	               $.each(response, function(i, trigger) { 
 	                   var category = trigger.category;
@@ -477,6 +510,11 @@
 	                               text: "(" + category + ":" + id + ") " + label
 	                           }));
 	                           break;
+						   case 4:
+							   $('#listbox-filters').append($('<option>', {
+	                               text: "(" + category + ":" + id + ") " + label
+	                           }));
+							   break;
 	                       case 5:
 	                           $('#listbox-effects').append($('<option>', {
 	                               text: "(" + category + ":" + id + ") " + label

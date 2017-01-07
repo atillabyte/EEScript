@@ -1050,7 +1050,6 @@ namespace EEScript.Interpreter
             #endregion
 
             #region Area
-
             // everywhere in the entire world,
             Page.SetTriggerHandler(new Trigger(TriggerCategory.Area, 64), new TriggerHandler((trigger, player, args) => {
                 trigger.Area = new Area();
@@ -1196,6 +1195,95 @@ namespace EEScript.Interpreter
 
                 return true;
             }));
+            #endregion
+
+            #region Filter
+            // only where the triggering player is currently at,
+            Page.SetTriggerHandler(new Trigger(TriggerCategory.Filter, 64), new TriggerHandler((trigger, player, args) => {
+                var _player = (Player)player;
+                var area = trigger.Areas.LastOrDefault().Area;
+
+                if (area == null)
+                    return false;
+
+                area.Points = area.Points.Where(x => x.X == _player.GetPhysicsPlayer().X && x.Y == _player.GetPhysicsPlayer().Y).ToList();
+                return true;
+            }));
+
+            // only where there is a foreground block present,
+            Page.SetTriggerHandler(new Trigger(TriggerCategory.Filter, 65), new TriggerHandler((trigger, player, args) => {
+                var _player = (Player)player;
+                var area = trigger.Areas.LastOrDefault().Area;
+
+                if (area == null)
+                    return false;
+
+                area.Points = area.Points.Where(b => Blocks.Of(Client).Foreground.Any(x => x.Location.X == b.X && x.Location.Y == b.Y)).ToList();
+                return true;
+            }));
+
+            // only where there is a background block present,
+            Page.SetTriggerHandler(new Trigger(TriggerCategory.Filter, 66), new TriggerHandler((trigger, player, args) => {
+                var _player = (Player)player;
+                var area = trigger.Areas.LastOrDefault().Area;
+
+                if (area == null)
+                    return false;
+
+                area.Points = area.Points.Where(b => Blocks.Of(Client).Background.Any(x => x.Location.X == b.X && x.Location.Y == b.Y)).ToList();
+                return true;
+            }));
+
+            // only where there is a foreground block # present,
+            Page.SetTriggerHandler(new Trigger(TriggerCategory.Filter, 67), new TriggerHandler((trigger, player, args) => {
+                var _player = (Player)player;
+                var area = trigger.Areas.LastOrDefault().Area;
+
+                if (area == null)
+                    return false;
+
+                area.Points = area.Points.Where(b => Blocks.Of(Client).Foreground.Any(x => x.Location.X == b.X && x.Location.Y == b.Y && x.Data.Block.Id == (Foreground.Id)trigger.GetInt(0))).ToList();
+                return true;
+            }));
+
+            // only where there is a background block # present,
+            Page.SetTriggerHandler(new Trigger(TriggerCategory.Filter, 68), new TriggerHandler((trigger, player, args) => {
+                var _player = (Player)player;
+                var area = trigger.Areas.LastOrDefault().Area;
+
+                if (area == null)
+                    return false;
+
+                area.Points = area.Points.Where(b => Blocks.Of(Client).Background.Any(x => x.Location.X == b.X && x.Location.Y == b.Y && x.Data.Block.Id == (Background.Id)trigger.GetInt(0))).ToList();
+                return true;
+            }));
+
+            // only where there is a block present,
+            Page.SetTriggerHandler(new Trigger(TriggerCategory.Filter, 69), new TriggerHandler((trigger, player, args) => {
+                var _player = (Player)player;
+                var area = trigger.Areas.LastOrDefault().Area;
+
+                if (area == null)
+                    return false;
+
+                area.Points = area.Points.Where(b => Blocks.Of(Client).Foreground.Any(x => x.Location.X == b.X && x.Location.Y == b.Y) || 
+                                                     Blocks.Of(Client).Background.Any(x => x.Location.X == b.X && x.Location.Y == b.Y)).ToList();
+                return true;
+            }));
+
+            // only where there are no blocks present,
+            Page.SetTriggerHandler(new Trigger(TriggerCategory.Filter, 70), new TriggerHandler((trigger, player, args) => {
+                var _player = (Player)player;
+                var area = trigger.Areas.LastOrDefault().Area;
+
+                if (area == null)
+                    return false;
+
+                area.Points = area.Points.Where(b => !Blocks.Of(Client).Foreground.Any(x => x.Location.X == b.X && x.Location.Y == b.Y) &&
+                                                     !Blocks.Of(Client).Background.Any(x => x.Location.X == b.X && x.Location.Y == b.Y)).ToList();
+                return true;
+            }));
+
             #endregion
 
             #region Effect
@@ -1407,6 +1495,118 @@ namespace EEScript.Interpreter
             // set the global variable ~ to ~.
             Page.SetTriggerHandler(new Trigger(TriggerCategory.Effect, 2001), new TriggerHandler((trigger, player, args) => {
                 Page.SetGlobalVariable(trigger.GetVariableName(0), trigger.Get(1));
+
+                return true;
+            }));
+
+            // take the triggering player's variable % and add # to it.
+            Page.SetTriggerHandler(new Trigger(TriggerCategory.Effect, 2002), new TriggerHandler((trigger, player, args) => {
+                ((Player)player).Set(trigger.GetVariableName(0), trigger.GetInt(0) + trigger.GetInt(1));
+
+                return true;
+            }));
+
+            // take the global variable % and add # to it.
+            Page.SetTriggerHandler(new Trigger(TriggerCategory.Effect, 2003), new TriggerHandler((trigger, player, args) => {
+                Page.SetGlobalVariable(trigger.GetVariableName(0), trigger.GetInt(0) + trigger.GetInt(1));
+
+                return true;
+            }));
+
+            // take the triggering player's variable % and subtract # from it.
+            Page.SetTriggerHandler(new Trigger(TriggerCategory.Effect, 2004), new TriggerHandler((trigger, player, args) => {
+                ((Player)player).Set(trigger.GetVariableName(0), trigger.GetInt(0) - trigger.GetInt(1));
+
+                return true;
+            }));
+
+            // take the global variable % and subtract # from it.
+            Page.SetTriggerHandler(new Trigger(TriggerCategory.Effect, 2005), new TriggerHandler((trigger, player, args) => {
+                Page.SetGlobalVariable(trigger.GetVariableName(0), trigger.GetInt(0) - trigger.GetInt(1));
+
+                return true;
+            }));
+
+            // take the triggering player's variable % and multiply it by #.
+            Page.SetTriggerHandler(new Trigger(TriggerCategory.Effect, 2006), new TriggerHandler((trigger, player, args) => {
+                ((Player)player).Set(trigger.GetVariableName(0), trigger.GetInt(0) * trigger.GetInt(1));
+
+                return true;
+            }));
+
+            // take the global variable % and multiply it by #.
+            Page.SetTriggerHandler(new Trigger(TriggerCategory.Effect, 2007), new TriggerHandler((trigger, player, args) => {
+                Page.SetGlobalVariable(trigger.GetVariableName(0), trigger.GetInt(0) * trigger.GetInt(1));
+
+                return true;
+            }));
+
+            // set the triggering player's variable % to their username.
+            Page.SetTriggerHandler(new Trigger(TriggerCategory.Effect, 2100), new TriggerHandler((trigger, player, args) => {
+                ((Player)player).Set(trigger.GetVariableName(0), ((Player)player).Username);
+
+                return true;
+            }));
+
+            // set the global variable ~ to the triggering player's username.
+            Page.SetTriggerHandler(new Trigger(TriggerCategory.Effect, 2101), new TriggerHandler((trigger, player, args) => {
+                Page.SetGlobalVariable(trigger.GetVariableName(0), ((Player)player).Username);
+
+                return true;
+            }));
+
+            // set the triggering player's variable % to the amount of gold coins they have.
+            Page.SetTriggerHandler(new Trigger(TriggerCategory.Effect, 2102), new TriggerHandler((trigger, player, args) => {
+                ((Player)player).Set(trigger.GetVariableName(0), ((Player)player).GoldCoins);
+
+                return true;
+            }));
+
+            // set the global variable ~ to the amount of gold coins the triggering player has.
+            Page.SetTriggerHandler(new Trigger(TriggerCategory.Effect, 2103), new TriggerHandler((trigger, player, args) => {
+                Page.SetGlobalVariable(trigger.GetVariableName(0), ((Player)player).GoldCoins);
+
+                return true;
+            }));
+
+            // set the triggering player's variable % to the amount of blue coins they have.
+            Page.SetTriggerHandler(new Trigger(TriggerCategory.Effect, 2104), new TriggerHandler((trigger, player, args) => {
+                ((Player)player).Set(trigger.GetVariableName(0), ((Player)player).BlueCoins);
+
+                return true;
+            }));
+
+            // set the global variable ~ to the amount of blue coins the triggering player has.
+            Page.SetTriggerHandler(new Trigger(TriggerCategory.Effect, 2105), new TriggerHandler((trigger, player, args) => {
+                Page.SetGlobalVariable(trigger.GetVariableName(0), ((Player)player).BlueCoins);
+
+                return true;
+            }));
+
+            // set the triggering player's variable % to the X position they're currently at.
+            Page.SetTriggerHandler(new Trigger(TriggerCategory.Effect, 2108), new TriggerHandler((trigger, player, args) => {
+                ((Player)player).Set(trigger.GetVariableName(0), ((Player)player).GetPhysicsPlayer().BlockX);
+
+                return true;
+            }));
+
+            // set the global variable ~ to the X position the triggering player's currently at.
+            Page.SetTriggerHandler(new Trigger(TriggerCategory.Effect, 2109), new TriggerHandler((trigger, player, args) => {
+                Page.SetGlobalVariable(trigger.GetVariableName(0), ((Player)player).GetPhysicsPlayer().BlockX);
+
+                return true;
+            }));
+
+            // set the triggering player's variable % to the Y position they're currently at.
+            Page.SetTriggerHandler(new Trigger(TriggerCategory.Effect, 2110), new TriggerHandler((trigger, player, args) => {
+                ((Player)player).Set(trigger.GetVariableName(0), ((Player)player).GetPhysicsPlayer().BlockY);
+
+                return true;
+            }));
+
+            // set the global variable ~ to the Y position the triggering player's currently at.
+            Page.SetTriggerHandler(new Trigger(TriggerCategory.Effect, 2111), new TriggerHandler((trigger, player, args) => {
+                Page.SetGlobalVariable(trigger.GetVariableName(0), ((Player)player).GetPhysicsPlayer().BlockY);
 
                 return true;
             }));

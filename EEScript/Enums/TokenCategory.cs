@@ -18,6 +18,11 @@
         /// </summary>
         Area = 3,
         /// <summary>
+        /// A trigger defined with a 4
+        /// <para>Example: (4:1) only where the foreground block is type #,</para>
+        /// </summary>
+        Filter = 4,
+        /// <summary>
         /// A trigger defined with a 5
         /// <para>Example: (5:1) place a letter with {...} written on it. </para>
         /// </summary>

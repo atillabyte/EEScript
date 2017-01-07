@@ -89,6 +89,7 @@ namespace EEScript
             causeTrigger.Page = this;
 
             // if there is a handler set for the cause category, invoke before proceeding
+            // cause triggers, if not handled, return true by default.
             if (this.Handlers.ContainsKey(causeTrigger)) {
                 if (!this.Handlers[causeTrigger](causeTrigger, triggeringEntity, additionalArgs))
                     return;
@@ -112,18 +113,31 @@ namespace EEScript
                     case TriggerCategory.Cause:
                         throw new EEScriptException("You cannot have sibling causes.");
                     case TriggerCategory.Condition:
+                        if (!this.Handlers.ContainsKey(trigger))
+                            throw new EEScriptException("You do not have a handler for this trigger.", trigger);
                         if (!this.Handlers[trigger](trigger, triggeringEntity, additionalArgs))
                             return;
 
                         triggerBlock.Last().Conditions.Add(trigger);
                         break;
                     case TriggerCategory.Area:
-                        if (this.Handlers.ContainsKey(trigger)) {
-                            if (!this.Handlers[trigger](trigger, triggeringEntity, additionalArgs))
-                                return;
-                        }
+                        if (!this.Handlers.ContainsKey(trigger))
+                            throw new EEScriptException("You do not have a handler for this trigger.", trigger);
+
+                        if (!this.Handlers[trigger](trigger, triggeringEntity, additionalArgs))
+                            return;
 
                         triggerBlock.Last().Areas.Add(trigger);
+                        break;
+                    case TriggerCategory.Filter:
+                        if (!this.Handlers.ContainsKey(trigger))
+                            throw new EEScriptException("You do not have a handler for this trigger.", trigger);
+
+                        trigger.Areas = triggerBlock.LastOrDefault().Areas;
+                        if (!this.Handlers[trigger](trigger, triggeringEntity, additionalArgs))
+                            return;
+
+                        triggerBlock.Last().Filters.Add(trigger);
                         break;
                     case TriggerCategory.Effect:
 

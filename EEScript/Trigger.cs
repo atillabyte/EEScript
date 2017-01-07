@@ -33,6 +33,12 @@ namespace EEScript
         /// </summary>
         public List<Trigger> Areas { get; set; } = new List<Trigger>();
 
+        /// <summary>
+        /// A list of successful <see cref="TriggerCategory.Filter"/>(s) evaluated prior.
+        /// <para> Note: This property is only set on the last node, typically being the <see cref="TriggerCategory.Effect"/>. </para>
+        /// </summary>
+        public List<Trigger> Filters { get; set; } = new List<Trigger>();
+
         public Trigger(TriggerCategory category, int triggerId)
         {
             this.Category = category;
