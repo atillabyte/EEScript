@@ -15,6 +15,7 @@ namespace EEScript.Interpreter
 {
     using static Page;
     using Enums;
+    using EEPhysics;
 
     class Program
     {
@@ -166,14 +167,16 @@ namespace EEScript.Interpreter
         [EventListener]
         public static void On(BlockChangeEvent e)
         {
+            var _player = Players.Of(Client).First(x => x.UserId == e.Player.Id);
+
             // Whenever someone moves,
-            Page.Execute(e.Player, e, 66);
+            Page.Execute(_player, e, 66);
 
             // Whenever someone moves into block #,
-            Page.Execute(e.Player, e, 71);
+            Page.Execute(_player, e, 71);
 
             // Whenever someone moves into position (#,#),
-            Page.Execute(e.Player, e, 73);
+            Page.Execute(_player, e, 73);
         }
 
         [EventListener]
@@ -1187,7 +1190,7 @@ namespace EEScript.Interpreter
             Page.SetTriggerHandler(new Trigger(TriggerCategory.Area, 802), new TriggerHandler((trigger, player, args) => {
                 trigger.Area = new Area();
 
-                var rectangle = new Rectangle(new BotBits.Point(trigger.GetInt(0), trigger.GetInt(1)), new BotBits.Point(trigger.GetInt(2), trigger.GetInt(3)));
+                var rectangle = new BotBits.Rectangle(new BotBits.Point(trigger.GetInt(0), trigger.GetInt(1)), new BotBits.Point(trigger.GetInt(2), trigger.GetInt(3)));
 
                 for (var i = rectangle.Left; i < rectangle.Right; i++)
                     for (var j = rectangle.Top; j < rectangle.Bottom; j++)

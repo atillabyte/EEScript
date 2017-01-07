@@ -11,10 +11,9 @@ namespace EEScript.Interpreter.Test
         static void Main(string[] args)
         {
             EEScriptInterpreter.Execute("email", "password", "PW7hyzuIJZcEI", @"
-(0:87) Whenever someone says something with {draw} in it,
-   (3:149) everyplace the triggering player can see,
-    (4:67) only where there is a foreground block 10,
-     (5:254) place a foreground block 11.
+(0:66) Whenever someone moves,
+   (3:128) where the triggering player is at,
+     (5:254) place a foreground block 10. 
             ");
 
             Console.ReadLine();
