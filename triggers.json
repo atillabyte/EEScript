@@ -1,0 +1,902 @@
+[
+    {
+      "category": 0,
+      "id": 0,
+      "label": "When everything is starting up,"
+    },
+    {
+      "category": 0,
+      "id": 1,
+      "label": "When everything has started up,"
+    },
+    {
+      "category": 0,
+      "id": 64,
+      "label": "Whenever someone arrives in the world,"
+    },
+    {
+      "category": 0,
+      "id": 65,
+      "label": "Whenever someone leaves the world,"
+    },
+    {
+      "category": 0,
+      "id": 66,
+      "label": "Whenever someone moves,"
+    },
+    {
+      "category": 0,
+      "id": 67,
+      "label": "Whenever someone moves left,"
+    },
+    {
+      "category": 0,
+      "id": 68,
+      "label": "Whenever someone moves right,"
+    },
+    {
+      "category": 0,
+      "id": 69,
+      "label": "Whenever someone moves up,"
+    },
+    {
+      "category": 0,
+      "id": 70,
+      "label": "Whenever someone moves down,"
+    },
+    {
+      "category": 0,
+      "id": 71,
+      "label": "Whenever someone moves into block #,"
+    },
+    {
+      "category": 0,
+      "id": 73,
+      "label": "Whenever someone moves into position (#,#),"
+    },
+    {
+      "category": 0,
+      "id": 78,
+      "label": "Whenever someone stops moving,"
+    },
+    {
+      "category": 0,
+      "id": 81,
+      "label": "Whenever someone jumps,"
+    },
+    {
+      "category": 0,
+      "id": 85,
+      "label": "Whenever someone says anything,"
+    },
+    {
+      "category": 0,
+      "id": 86,
+      "label": "Whenever someone says {...},"
+    },
+    {
+      "category": 0,
+      "id": 87,
+      "label": "Whenever someone says something with {...} in it,"
+    },
+    {
+      "category": 0,
+      "id": 88,
+      "label": "Whenever someone private messages {...},"
+    },
+    {
+      "category": 0,
+      "id": 89,
+      "label": "Whenever someone private messages something with {...} in it,"
+    },
+    {
+      "category": 0,
+      "id": 90,
+      "label": "Whenever someone places a block anywhere,"
+    },
+    {
+      "category": 0,
+      "id": 91,
+      "label": "Whenever someone places a foreground block # at (#,#),"
+    },
+    {
+      "category": 0,
+      "id": 92,
+      "label": "Whenever someone places a foreground block at (#,#),"
+    },
+    {
+      "category": 0,
+      "id": 93,
+      "label": "Whenever someone places a background block # at (#,#),"
+    },
+    {
+      "category": 0,
+      "id": 94,
+      "label": "Whenever someone places a background block at (#,#),"
+    },
+    {
+      "category": 0,
+      "id": 95,
+      "label": "Whenever someone places a foreground block #,"
+    },
+    {
+      "category": 0,
+      "id": 96,
+      "label": "Whenever someone removes a foreground block #,"
+    },
+    {
+      "category": 0,
+      "id": 97,
+      "label": "Whenever someone places a background block #,"
+    },
+    {
+      "category": 0,
+      "id": 98,
+      "label": "Whenever someone removes a background block #,"
+    },
+    {
+      "category": 0,
+      "id": 100,
+      "label": "Whenever someone dies,"
+    },
+    {
+      "category": 0,
+      "id": 101,
+      "label": "Whenever someone changes teams,"
+    },
+    {
+      "category": 0,
+      "id": 102,
+      "label": "Whenever someone collects a gold coin,"
+    },
+    {
+      "category": 0,
+      "id": 103,
+      "label": "Whenever someone collects a blue coin,"
+    },
+    {
+      "category": 0,
+      "id": 104,
+      "label": "Whenever someone touches a golden crown,"
+    },
+    {
+      "category": 0,
+      "id": 105,
+      "label": "Whenever someone touches a silver crown,"
+    },
+    {
+      "category": 0,
+      "id": 110,
+      "label": "Whenever someone touches a key,"
+    },
+    {
+      "category": 0,
+      "id": 111,
+      "label": "Whenever someone touches a cake,"
+    },
+    {
+      "category": 0,
+      "id": 124,
+      "label": "Whenever someone changes their smiley,"
+    },
+    {
+      "category": 0,
+      "id": 125,
+      "label": "Whenever someone changes their smiley to #,"
+    },
+    {
+      "category": 0,
+      "id": 164,
+      "label": "Whenever someone toggles a purple switch with the Id #,"
+    },
+    {
+      "category": 0,
+      "id": 165,
+      "label": "Whenever someone untoggles a purple switch with the Id #,"
+    },
+    {
+      "category": 0,
+      "id": 166,
+      "label": "Whenever someone toggles an orange switch with the Id #,"
+    },
+    {
+      "category": 0,
+      "id": 167,
+      "label": "Whenever someone untoggles an orange switch with the Id #,"
+    },
+    {
+      "category": 0,
+      "id": 624,
+      "label": "Whenever someone goes AFK,"
+    },
+    {
+      "category": 0,
+      "id": 625,
+      "label": "Whenever someone stops being AFK,"
+    },
+    {
+      "category": 0,
+      "id": 626,
+      "label": "Whenever someone idles (doesn't do ANYTHING) for # seconds,"
+    },
+    {
+      "category": 0,
+      "id": 627,
+      "label": "Whenever someone stays in the same square for # seconds,"
+    },
+    {
+      "category": 0,
+      "id": 628,
+      "label": "Whenever someone remains motionless (doesn't move at all) for # seconds,"
+    },
+    {
+      "category": 0,
+      "id": 629,
+      "label": "Whenever someone doesn't speak (or PM) for # seconds,"
+    },
+    {
+      "category": 0,
+      "id": 200,
+      "label": "Whenever the world name is changed to anything,"
+    },
+    {
+      "category": 0,
+      "id": 201,
+      "label": "Whenever the world name is changed to {...},"
+    },
+    {
+      "category": 0,
+      "id": 202,
+      "label": "Whenever the world name is changed to something with {...} in it,"
+    },
+    {
+      "category": 1,
+      "id": 67,
+      "label": "and they are currently on foreground block #,"
+    },
+    {
+      "category": 1,
+      "id": 68,
+      "label": "and they are not currently on foreground block #,"
+    },
+    {
+      "category": 1,
+      "id": 69,
+      "label": "and they are currently on background block #,"
+    },
+    {
+      "category": 1,
+      "id": 70,
+      "label": "and they are not currently on background block #,"
+    },
+    {
+      "category": 1,
+      "id": 71,
+      "label": "and they are currently at position (#,#),"
+    },
+    {
+      "category": 1,
+      "id": 72,
+      "label": "and they are not currently at position (#,#),"
+    },
+    {
+      "category": 1,
+      "id": 85,
+      "label": "and they can see position (#,#),"
+    },
+    {
+      "category": 1,
+      "id": 128,
+      "label": "and they are the world owner,"
+    },
+    {
+      "category": 1,
+      "id": 129,
+      "label": "and their name is {...},"
+    },
+    {
+      "category": 1,
+      "id": 130,
+      "label": "and their name is not {...}"
+    },
+    {
+      "category": 1,
+      "id": 131,
+      "label": "and their unique user id is {...}"
+    },
+    {
+      "category": 1,
+      "id": 132,
+      "label": "and their unique user id is not {...}"
+    },
+    {
+      "category": 1,
+      "id": 133,
+      "label": "and their smiley is #,"
+    },
+    {
+      "category": 1,
+      "id": 134,
+      "label": "and their smiley is not #,"
+    },
+    {
+      "category": 1,
+      "id": 135,
+      "label": "and their team is #,"
+    },
+    {
+      "category": 1,
+      "id": 136,
+      "label": "and their team is not #,"
+    },
+    {
+      "category": 1,
+      "id": 450,
+      "label": "and they have # gold coins,"
+    },
+    {
+      "category": 1,
+      "id": 451,
+      "label": "and they have # blue coins,"
+    },
+    {
+      "category": 1,
+      "id": 452,
+      "label": "and they have more than # gold coins,"
+    },
+    {
+      "category": 1,
+      "id": 453,
+      "label": "and they have less than # gold coins,"
+    },
+    {
+      "category": 1,
+      "id": 454,
+      "label": "and they have more than # blue coins,"
+    },
+    {
+      "category": 1,
+      "id": 455,
+      "label": "and they have less than # blue coins,"
+    },
+    {
+      "category": 1,
+      "id": 462,
+      "label": "and they have god mode enabled,"
+    },
+    {
+      "category": 1,
+      "id": 463,
+      "label": "and they have god mode disabled,"
+    },
+    {
+      "category": 1,
+      "id": 464,
+      "label": "and they have mod mode enabled,"
+    },
+    {
+      "category": 1,
+      "id": 465,
+      "label": "and they have mod mode disabled,"
+    },
+    {
+      "category": 1,
+      "id": 466,
+      "label": "and they have admin mode enabled,"
+    },
+    {
+      "category": 1,
+      "id": 467,
+      "label": "and they have admin mode disabled,"
+    },
+    {
+      "category": 1,
+      "id": 474,
+      "label": "and they have got edit access (or is the world owner),"
+    },
+    {
+      "category": 1,
+      "id": 475,
+      "label": "and they haven't got edit access (and is not the world owner),"
+    },
+    {
+      "category": 1,
+      "id": 476,
+      "label": "and they have got gold membership,"
+    },
+    {
+      "category": 1,
+      "id": 477,
+      "label": "and they haven't got gold membership,"
+    },
+    {
+      "category": 1,
+      "id": 600,
+      "label": "and the foreground block at (#,#) is #,"
+    },
+    {
+      "category": 1,
+      "id": 601,
+      "label": "and the background block at (#,#) is #,"
+    },
+    {
+      "category": 1,
+      "id": 602,
+      "label": "and the foreground block at (#,#) is not #,"
+    },
+    {
+      "category": 1,
+      "id": 603,
+      "label": "and the background block at (#,#) is not #,"
+    },
+    {
+      "category": 1,
+      "id": 604,
+      "label": "and the foreground block at (#,#) is the same block at (#,#),"
+    },
+    {
+      "category": 1,
+      "id": 605,
+      "label": "and the background block at (#,#) is the same block at (#,#),"
+    },
+    {
+      "category": 1,
+      "id": 606,
+      "label": "and the foreground block at (#,#) is NOT the same block at (#,#),"
+    },
+    {
+      "category": 1,
+      "id": 607,
+      "label": "and the background block at (#,#) is NOT the same block at (#,#),"
+    },
+    {
+      "category": 1,
+      "id": 632,
+      "label": "and the player named {...} is in the world right now,"
+    },
+    {
+      "category": 1,
+      "id": 633,
+      "label": "and the player with the unique user id {...} is in the world right now,"
+    },
+    {
+      "category": 1,
+      "id": 634,
+      "label": "and the player named {...} is not in the world right now,"
+    },
+    {
+      "category": 1,
+      "id": 635,
+      "label": "and the player with the unique user id {...} is not in the world right now,"
+    },
+    {
+      "category": 1,
+      "id": 700,
+      "label": "and there's someone at (#,#),"
+    },
+    {
+      "category": 1,
+      "id": 701,
+      "label": "and there's nobody at (#,#),"
+    },
+    {
+      "category": 1,
+      "id": 2000,
+      "label": "and the triggering player's variable % is equal to #,"
+    },
+    {
+      "category": 1,
+      "id": 2001,
+      "label": "and the global variable ~ is equal to #,"
+    },
+    {
+      "category": 1,
+      "id": 2002,
+      "label": "and the triggering player's variable % is more than #,"
+    },
+    {
+      "category": 1,
+      "id": 2003,
+      "label": "and the global variable ~ is more than #,"
+    },
+    {
+      "category": 1,
+      "id": 2004,
+      "label": "and the triggering player's variable % is less than #,"
+    },
+    {
+      "category": 1,
+      "id": 2005,
+      "label": "and the global variable ~ is less than #,"
+    },
+    {
+      "category": 3,
+      "id": 64,
+      "label": "everywhere in the entire world,"
+    },
+    {
+      "category": 3,
+      "id": 65,
+      "label": "at position (#,#) in the world,"
+    },
+    {
+      "category": 3,
+      "id": 128,
+      "label": "where the triggering player is at,"
+    },
+    {
+      "category": 3,
+      "id": 129,
+      "label": "where the triggering player moved from,"
+    },
+    {
+      "category": 3,
+      "id": 130,
+      "label": "where the triggering player moved into,"
+    },
+    {
+      "category": 3,
+      "id": 149,
+      "label": "everyplace the triggering player can see,"
+    },
+    {
+      "category": 3,
+      "id": 150,
+      "label": "everyplace that can be seen from (#,#),"
+    },
+    {
+      "category": 3,
+      "id": 151,
+      "label": "at # block(s) just to the left of the triggering player,"
+    },
+    {
+      "category": 3,
+      "id": 152,
+      "label": "at # block(s) just to the right of the triggering player,"
+    },
+    {
+      "category": 3,
+      "id": 153,
+      "label": "at # block(s) just above the triggering player,"
+    },
+    {
+      "category": 3,
+      "id": 154,
+      "label": "at # block(s) just below the triggering player,"
+    },
+    {
+      "category": 3,
+      "id": 800,
+      "label": "at a random spot somewhere in the world,"
+    },
+    {
+      "category": 3,
+      "id": 801,
+      "label": "at a random spot that is somewhere onscreen for the triggering player,"
+    },
+    {
+      "category": 3,
+      "id": 802,
+      "label": "everywhere within the rectangle (TL/BR) (#,#) - (#,#),"
+    },
+    {
+      "category": 4,
+      "id": 64,
+      "label": "only where the triggering player is currently at,"
+    },
+    {
+      "category": 4,
+      "id": 65,
+      "label": "only where there is a foreground block present,"
+    },
+    {
+      "category": 4,
+      "id": 66,
+      "label": "only where there is a background block present,
+    },
+    {
+      "category": 4,
+      "id": 67,
+      "label": "only where there is a foreground block # present,"
+    },
+    {
+      "category": 4,
+      "id": 68,
+      "label": "only where there is a background block # present,"
+    },
+    {
+      "category": 4,
+      "id": 69,
+      "label": "only where there is a block present,"
+    },
+    {
+      "category": 4,
+      "id": 70,
+      "label": "only where there are no blocks present,"
+    },
+    {
+      "category": 5,
+      "id": 64,
+      "label": "move the triggering player to (#,#)."
+    },
+    {
+      "category": 5,
+      "id": 65,
+      "label": "move any player present to (#,#)."
+    },
+    {
+      "category": 5,
+      "id": 66,
+      "label": "move the triggering player back where they came from."
+    },
+    {
+      "category": 5,
+      "id": 68,
+      "label": "move the triggering player to a random location in region #."
+    },
+    {
+      "category": 5,
+      "id": 59,
+      "label": "move any player present to a random location in region #."
+    },
+    {
+      "category": 5,
+      "id": 100,
+      "label": "kick the triggering player with the message {...}."
+    },
+    {
+      "category": 5,
+      "id": 101,
+      "label": "kick any player present with the message {...}."
+    },
+    {
+      "category": 5,
+      "id": 102,
+      "label": "kill the triggering player."
+    },
+    {
+      "category": 5,
+      "id": 103,
+      "label": "kill any player present."
+    },
+    {
+      "category": 5,
+      "id": 104,
+      "label": "give the triggering player edit privileges."
+    },
+    {
+      "category": 5,
+      "id": 105,
+      "label": "give any player present edit privileges."
+    },
+    {
+      "category": 5,
+      "id": 106,
+      "label": "remove edit privileges from the triggering player."
+    },
+    {
+      "category": 5,
+      "id": 107,
+      "label": "remove edit privileges from any player present."
+    },
+    {
+      "category": 5,
+      "id": 108,
+      "label": "give the triggering player god privileges."
+    },
+    {
+      "category": 5,
+      "id": 109,
+      "label": "give any player present god privileges."
+    },
+    {
+      "category": 5,
+      "id": 110,
+      "label": "remove god privileges from the triggering player."
+    },
+    {
+      "category": 5,
+      "id": 111,
+      "label": "remove god privileges from any player present."
+    },
+    {
+      "category": 5,
+      "id": 132,
+      "label": "give the triggering player a crown."
+    },
+    {
+      "category": 5,
+      "id": 140,
+      "label": "change the triggering player's team to #,"
+    },
+    {
+      "category": 5,
+      "id": 164,
+      "label": "say {...} in the world."
+    },
+    {
+      "category": 5,
+      "id": 166,
+      "label": "enable the world lobby preview."
+    },
+    {
+      "category": 5,
+      "id": 167,
+      "label": "disable the world lobby preview."
+    },
+    {
+      "category": 5,
+      "id": 168,
+      "label": "enable the world visibility."
+    },
+    {
+      "category": 5,
+      "id": 169,
+      "label": "disable the world visibility."
+    },
+    {
+      "category": 5,
+      "id": 170,
+      "label": "enable the world visibility in the lobby."
+    },
+    {
+      "category": 5,
+      "id": 171,
+      "label": "disable the world visibility in the lobby."
+    },
+    {
+      "category": 5,
+      "id": 172,
+      "label": "change the world name to {...}."
+    },
+    {
+      "category": 5,
+      "id": 173,
+      "label": "change the world edit key to {...}."
+    },
+    {
+      "category": 5,
+      "id": 174,
+      "label": "change the world description to {...}."
+    },
+    {
+      "category": 5,
+      "id": 175,
+      "label": "change the world status to #."
+    },
+    {
+      "category": 5,
+      "id": 190,
+      "label": "change the world curse limit to #."
+    },
+    {
+      "category": 5,
+      "id": 191,
+      "label": "change the world zombie limit to #."
+    },
+    {
+      "category": 5,
+      "id": 254,
+      "label": "place a foreground block #."
+    },
+    {
+      "category": 5,
+      "id": 255,
+      "label": "place a background block #."
+    },
+    {
+      "category": 5,
+      "id": 256,
+      "label": "place a foreground block # at (#,#)."
+    },
+    {
+      "category": 5,
+      "id": 257,
+      "label": "place a background block # at (#,#)."
+    },
+    {
+      "category": 5,
+      "id": 258,
+      "label": "copy the block(s) offset to (#,#)."
+    },
+    {
+      "category": 5,
+      "id": 998,
+      "label": "make the player named {...} the new triggering player, if they're in the world right now."
+    },
+    {
+      "category": 5,
+      "id": 999,
+      "label": "make the player with the unique user id {...} the new triggering player, if they're in the world right now."
+    },
+    {
+      "category": 5,
+      "id": 2000,
+      "label": "set the triggering player's variable % to %."
+    },
+    {
+      "category": 5,
+      "id": 2001,
+      "label": "set the global variable ~ to ~."
+    },
+    {
+      "category": 5,
+      "id": 2002,
+      "label": "take the triggering player's variable % and add # to it."
+    },
+    {
+      "category": 5,
+      "id": 2003,
+      "label": "take the global variable % and add # to it."
+    },
+    {
+      "category": 5,
+      "id": 2004,
+      "label": "take the triggering player's variable % and subtract # from it."
+    },
+    {
+      "category": 5,
+      "id": 2005,
+      "label": "take the global variable % and subtract # from it."
+    },
+    {
+      "category": 5,
+      "id": 2006,
+      "label": "take the triggering player's variable % and multiply it by #."
+    },
+    {
+      "category": 5,
+      "id": 2007,
+      "label": "take the global variable % and multiply it by #."
+    },
+    {
+      "category": 5,
+      "id": 2100,
+      "label": "set the triggering player's variable % to their username."
+    },
+    {
+      "category": 5,
+      "id": 2101,
+      "label": "set the global variable ~ to the triggering player's username."
+    },
+    {
+      "category": 5,
+      "id": 2102,
+      "label": "set the triggering player's variable % to the amount of gold coins they have."
+    },
+    {
+      "category": 5,
+      "id": 2103,
+      "label": "set the global variable ~ to the amount of gold coins the triggering player has."
+    },
+    {
+      "category": 5,
+      "id": 2104,
+      "label": "set the triggering player's variable % to the amount of blue coins they have."
+    },
+    {
+      "category": 5,
+      "id": 2105,
+      "label": "set the global variable ~ to the amount of blue coins the triggering player has."
+    },
+    {
+      "category": 5,
+      "id": 2108,
+      "label": "set the triggering player's variable % to the X position they're currently at."
+    },
+    {
+      "category": 5,
+      "id": 2109,
+      "label": "set the global variable ~ to the X position the triggering player's currently at."
+    },
+    {
+      "category": 5,
+      "id": 2110,
+      "label": "set the triggering player's variable % to the Y position they're currently at."
+    },
+    {
+      "category": 5,
+      "id": 2111,
+      "label": "set the global variable ~ to the Y position the triggering player's currently at."
+    },
+]
