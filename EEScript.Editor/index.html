@@ -474,7 +474,7 @@
 		   
 		   $.ajax({
 			   type: "GET",
-			   url: "https://cdn.rawgit.com/atillabyte/EEScript/master/config.json",
+			   url: "https://raw.githubusercontent.com/atillabyte/EEScript/master/config.json?t=" + $.now(),
 			   success: function(response) {
 			        if (response.currentVersion != version) {
 						$("#statusbar").html("EEScript Editor - New Version Available! " + '(<a href="' + response.projectHomePage + '">Project Homepage</a>)');
@@ -486,7 +486,7 @@
 	       // add triggers from json
 	       $.ajax({
 	           type: "GET", 
-	           url: 'https://cdn.rawgit.com/atillabyte/EEScript/master/triggers.json',
+	           url: 'https://raw.githubusercontent.com/atillabyte/EEScript/master/triggers.json?v=' + version,
 	           success: function(response) {
 	               $.each(response, function(i, trigger) { 
 	                   var category = trigger.category;
