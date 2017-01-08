@@ -206,36 +206,6 @@
     },
     {
       "category": 0,
-      "id": 624,
-      "label": "Whenever someone goes AFK,"
-    },
-    {
-      "category": 0,
-      "id": 625,
-      "label": "Whenever someone stops being AFK,"
-    },
-    {
-      "category": 0,
-      "id": 626,
-      "label": "Whenever someone idles (doesn't do ANYTHING) for # seconds,"
-    },
-    {
-      "category": 0,
-      "id": 627,
-      "label": "Whenever someone stays in the same square for # seconds,"
-    },
-    {
-      "category": 0,
-      "id": 628,
-      "label": "Whenever someone remains motionless (doesn't move at all) for # seconds,"
-    },
-    {
-      "category": 0,
-      "id": 629,
-      "label": "Whenever someone doesn't speak (or PM) for # seconds,"
-    },
-    {
-      "category": 0,
       "id": 200,
       "label": "Whenever the world name is changed to anything,"
     },
@@ -408,6 +378,51 @@
       "category": 1,
       "id": 477,
       "label": "and they haven't got gold membership,"
+    },
+    {
+      "category": 1,
+      "id": 478,
+      "label": "and they have got a golden crown,"
+    },
+    {
+      "category": 1,
+      "id": 479,
+      "label": "and they haven't got a golden crown,"
+    },
+    {
+      "category": 1,
+      "id": 480,
+      "label": "and they have got a silver crown,"
+    },
+    {
+      "category": 1,
+      "id": 481,
+      "label": "and they haven't got a silver crown,"
+    },
+    {
+      "category": 1,
+      "id": 496,
+      "label": "and they have got the gold coin at (#,#),"
+    },
+    {
+      "category": 1,
+      "id": 497,
+      "label": "and they haven't got the gold coin at (#,#),"
+    },
+    {
+      "category": 1,
+      "id": 498,
+      "label": "and they have got the blue coin at (#,#),"
+    },
+    {
+      "category": 1,
+      "id": 499,
+      "label": "and they haven't got the blue coin at (#,#),"
+    },
+    {
+      "category": 1,
+      "id": 500,
+      "label": "and their team is currently set to #,"
     },
     {
       "category": 1,
