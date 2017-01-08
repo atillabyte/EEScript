@@ -827,7 +827,7 @@
     {
       "category": 5,
       "id": 2003,
-      "label": "take the global variable % and add # to it."
+      "label": "take the global variable ~ and add # to it."
     },
     {
       "category": 5,
@@ -837,7 +837,7 @@
     {
       "category": 5,
       "id": 2005,
-      "label": "take the global variable % and subtract # from it."
+      "label": "take the global variable ~ and subtract # from it."
     },
     {
       "category": 5,
@@ -847,7 +847,27 @@
     {
       "category": 5,
       "id": 2007,
-      "label": "take the global variable % and multiply it by #."
+      "label": "take the global variable ~ and multiply it by #."
+    },
+    {
+      "category": 5,
+      "id": 2008,
+      "label": "take the triggering player's variable % and divide it by #."
+    },
+    {
+      "category": 5,
+      "id": 2009,
+      "label": "take the global variable ~ and divide it by #."
+    },
+    {
+      "category": 5,
+      "id": 2010,
+      "label": "set the triggering player's variable % to a random number between # and #."
+    },
+    {
+      "category": 5,
+      "id": 2011,
+      "label": "set the global variable ~ to a random number between # and #."
     },
     {
       "category": 5,
