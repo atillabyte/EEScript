@@ -1,6 +1,6 @@
 {
   "name": "eescript-editor",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "EEScript Editor",
   "main": "main.js",
   "scripts": {
