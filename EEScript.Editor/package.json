@@ -1,6 +1,6 @@
 {
   "name": "eescript-editor",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "EEScript Editor",
   "main": "main.js",
   "scripts": {
@@ -17,7 +17,8 @@
     "electron-packager": "^8.4.0"
   },
   "dependencies": {
-    "jquery": "^3.1.1",
-    "cross-spawn": "^5.0.0"
+    "cross-spawn": "^5.0.0",
+    "electron-config": "^0.2.1",
+    "jquery": "^3.1.1"
   }
 }

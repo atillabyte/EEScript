@@ -3,6 +3,10 @@
 <html lang="en">
 <head>
 	<script>
+	const Config = require('electron-config');
+	
+	const config = new Config();
+	
 	var app = require('electron').remote; 
 	var dialog = app.dialog;
 	var fs = require('fs');
@@ -10,7 +14,7 @@
 	var shell = require('electron').shell;
 	
 	// EEScript Version
-	var version = 'v1.0.8';
+	var version = 'v1.0.9';
 	
 	require('electron').webFrame.setZoomFactor(1.2);
 	</script>
@@ -421,11 +425,14 @@
 	       
 	       $("#execute-page").val("running");
 	       $("#execute-page").text("X");
+		   
+		   // save user configuration
+		   config.set('email', email);
+		   config.set('password', password);
 	   }
 
 	</script> 
 	<script>
-	   
 	   $(document).ready(function() {
 	       $("#content div").hide(); // initially hide all content
 	       $("#tabs li:first").attr("id","current"); // activate first tab
@@ -471,6 +478,14 @@
 	       });
 	       
 	       $("#options-themes").change();
+		   
+		   // load user configuration
+		   if (config.has('email')) {
+				$('#options-login-email').val(config.get('email'));
+		   }
+		   if (config.has('password')) {
+				$('#options-login-password').val(config.get('password'));
+		   }
 		   
 		   $.ajax({
 			   type: "GET",
