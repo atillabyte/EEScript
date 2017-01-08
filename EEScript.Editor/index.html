@@ -10,7 +10,7 @@
 	var shell = require('electron').shell;
 	
 	// EEScript Version
-	var version = 'v1.0.6';
+	var version = 'v1.0.7';
 	
 	require('electron').webFrame.setZoomFactor(1.2);
 	
@@ -464,8 +464,13 @@
 	           if ($("#execute-page").val() == "stopped") {
 	               executePage();
 	           } else {
-	               process.kill(child.pid);
-
+			   
+					try {
+						process.kill(child.pid);
+					} catch(ex) {
+						console.log(ex.message);
+					}
+					
 	               $("#execute-page").val("stopped");
 	               $("#execute-page").text("▶");
 	           }

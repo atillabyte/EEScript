@@ -1581,14 +1581,14 @@ namespace EEScript.Interpreter
 
             // set the triggering player's variable % to a random number between # and #.
             Page.SetTriggerHandler(new Trigger(TriggerCategory.Effect, 2010), new TriggerHandler((trigger, player, args) => {
-                ((Player)player).Set(trigger.GetVariableName(0), Random.Next(trigger.GetInt(0), trigger.GetInt(1)));
+                ((Player)player).Set(trigger.GetVariableName(0), Random.Next(trigger.GetInt(1), trigger.GetInt(2)));
 
                 return true;
             }));
 
             // set the global variable ~ to a random number between # and #.
             Page.SetTriggerHandler(new Trigger(TriggerCategory.Effect, 2011), new TriggerHandler((trigger, player, args) => {
-                Page.SetGlobalVariable(trigger.GetVariableName(0), Random.Next(trigger.GetInt(0), trigger.GetInt(1)));
+                Page.SetGlobalVariable(trigger.GetVariableName(0), Random.Next(trigger.GetInt(1), trigger.GetInt(2)));
 
                 return true;
             }));

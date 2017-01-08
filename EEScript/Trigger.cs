@@ -74,7 +74,7 @@ namespace EEScript
 
                 foreach (var globalVariableRegex in ((Lexer)this.Page.Engine.Lexer).TokenDefinitions.Where(x => x.Type == TokenType.GlobalVariable)) {
                     foreach (Match match in globalVariableRegex.Regex.Matches((string)content)) {
-                        content = ((string)content).Replace(match.Value, this.Page.VariableHandler(this, match.Value.Remove(0, 1)).ToString());
+                        content = ((string)content).Replace(match.Value, this.Page.Variables.Where(x => x.Type == VariableType.Global && x.Key == match.Value.Remove(0,1)).First().Value.ToString());
                     }
                 }
             }
