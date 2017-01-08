@@ -837,7 +837,47 @@ namespace EEScript.Interpreter
                 return !((Player)player).ClubMember;
             }));
 
-            // and their team is set to #,
+            // and they have got a golden crown,
+            Page.SetTriggerHandler(new Trigger(TriggerCategory.Condition, 478), new TriggerHandler((trigger, player, args) => {
+                return ((Player)player).HasCrown;
+            }));
+
+            // and they haven't got a golden crown,
+            Page.SetTriggerHandler(new Trigger(TriggerCategory.Condition, 479), new TriggerHandler((trigger, player, args) => {
+                return !((Player)player).HasCrown;
+            }));
+
+            // and they have got a silver crown,
+            Page.SetTriggerHandler(new Trigger(TriggerCategory.Condition, 480), new TriggerHandler((trigger, player, args) => {
+                return ((Player)player).HasSilverCrown;
+            }));
+
+            // and they haven't got a silver crown,
+            Page.SetTriggerHandler(new Trigger(TriggerCategory.Condition, 481), new TriggerHandler((trigger, player, args) => {
+                return !((Player)player).HasSilverCrown;
+            }));
+
+            // and they have got the gold coin at (#,#),
+            Page.SetTriggerHandler(new Trigger(TriggerCategory.Condition, 496), new TriggerHandler((trigger, player, args) => {
+                return ((Player)player).HasGoldCoin(new BotBits.Point(trigger.GetInt(0), trigger.GetInt(1)));
+            }));
+
+            // and they haven't got the gold coin at (#,#),
+            Page.SetTriggerHandler(new Trigger(TriggerCategory.Condition, 497), new TriggerHandler((trigger, player, args) => {
+                return !((Player)player).HasGoldCoin(new BotBits.Point(trigger.GetInt(0), trigger.GetInt(1)));
+            }));
+
+            // and they have got the blue coin at (#,#),
+            Page.SetTriggerHandler(new Trigger(TriggerCategory.Condition, 498), new TriggerHandler((trigger, player, args) => {
+                return ((Player)player).HasBlueCoin(new BotBits.Point(trigger.GetInt(0), trigger.GetInt(1)));
+            }));
+
+            // and they haven't got the blue coin at (#,#),
+            Page.SetTriggerHandler(new Trigger(TriggerCategory.Condition, 499), new TriggerHandler((trigger, player, args) => {
+                return !((Player)player).HasBlueCoin(new BotBits.Point(trigger.GetInt(0), trigger.GetInt(1)));
+            }));
+
+            // and their team is currently set to #,
             Page.SetTriggerHandler(new Trigger(TriggerCategory.Condition, 500), new TriggerHandler((trigger, player, args) => {
                 return ((Player)player).Team == (Team)trigger.GetInt(0);
             }));
