@@ -35,7 +35,6 @@ Whereas the most complicated example would something like,
 
 * _**Filters**_ always come after areas, and they narrow down anything within an area. 
   For example, if your area is 'everywhere around the triggering player' and you only want to place a block where there's a background, you can add a filter to do so.
-  They are currently unimplemented as of yet, however they'll be added very soon!
 
 * _**Effects**_ are the final trigger type, they change something in the world you're in.
   The change can be anything from a new block being placed somewhere, to changing the room name, or giving someone a crown. You can have as many effects after a cause as you'd like.
