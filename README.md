@@ -3,6 +3,7 @@
 [![License](https://img.shields.io/github/license/atillabyte/EEScript.svg?label=License&maxAge=86400)](./LICENSE.txt)
 
 EEScript is a purely functional scripting language that aims to be incredibly easy for non-programmers to pick up and learn.
+
 ![Screenshot](https://atil.la/x/img/xFrMMBtsV.png)
 
 ### A brief overview of what EEScript is
@@ -18,7 +19,7 @@ A simple line of EEScript translates in common terms like this:
 A slightly more complex example would be, 
 > _"If this happens, and this condition is true, then do this."_
 
-Whereas the most complicated example would something like,
+Whereas the most complicated example would be something like,
 > _"If this happens, and this condition is true, then in this area, but only where this other condition is true, do this."_
 
 ## Trigger Categories
