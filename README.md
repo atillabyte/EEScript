@@ -4,7 +4,7 @@
 
 EEScript is a purely functional scripting language that aims to be incredibly easy for non-programmers to pick up and learn.
 
-![Screenshot](https://atil.la/x/img/xFrMMBtsV.png)
+![Screenshot](https://atil.la/x/img/Wrdl+i2Us3.png)
 
 ### A brief overview of what EEScript is
 There are a few different types of triggers, we'll cover the basics first.
