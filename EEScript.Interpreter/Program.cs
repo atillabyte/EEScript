@@ -1202,8 +1202,8 @@ namespace EEScript.Interpreter
 
                 var rectangle = new BotBits.Rectangle(new BotBits.Point(trigger.GetInt(0), trigger.GetInt(1)), new BotBits.Point(trigger.GetInt(2), trigger.GetInt(3)));
 
-                for (var i = rectangle.Left; i < rectangle.Right; i++)
-                    for (var j = rectangle.Top; j < rectangle.Bottom; j++)
+                for (var i = rectangle.Left; i <= rectangle.Right; i++)
+                    for (var j = rectangle.Top; j <= rectangle.Bottom; j++)
                         trigger.Area.Points.Add(new Point(i, j));
 
                 return true;
@@ -1493,15 +1493,17 @@ namespace EEScript.Interpreter
                 if (trigger.Area == null)
                     return false;
 
+                var offsetX = trigger.GetInt(0);
+                var offsetY = trigger.GetInt(1);
+
+                var topLeftPoint = trigger.Area.Points.OrderByDescending(b => b.X).OrderByDescending(b => b.Y).Reverse().First();
+
                 foreach (var point in trigger.Area.Points) {
                     var block = Blocks.Of(Client).FirstOrDefault(b => b.X == point.X && b.Y == point.Y);
+                    var offset = new Point(offsetX + (block.X - topLeftPoint.X), offsetY + (block.Y - topLeftPoint.Y));
 
-                    if (block.Background.Block != null) {
-                        Blocks.Of(Client).Place(block.X + trigger.GetInt(0), block.Y + trigger.GetInt(1), block.Background.Block);
-                    }
-                    if (block.Foreground.Block != null) {
-                        Blocks.Of(Client).Place(block.X + trigger.GetInt(0), block.Y + trigger.GetInt(1), block.Foreground.Block);
-                    }
+                    Blocks.Of(Client).Place(offset.X, offset.Y, block.Background.Block);
+                    Blocks.Of(Client).Place(offset.X, offset.Y, block.Foreground.Block);
                 }
 
                 return true;
@@ -1528,7 +1530,7 @@ namespace EEScript.Interpreter
                 return true;
             }));
 
-            // take the global variable % and add # to it.
+            // take the global variable ~ and add # to it.
             Page.SetTriggerHandler(new Trigger(TriggerCategory.Effect, 2003), new TriggerHandler((trigger, player, args) => {
                 Page.SetGlobalVariable(trigger.GetVariableName(0), trigger.GetInt(0) + trigger.GetInt(1));
 
@@ -1542,7 +1544,7 @@ namespace EEScript.Interpreter
                 return true;
             }));
 
-            // take the global variable % and subtract # from it.
+            // take the global variable ~ and subtract # from it.
             Page.SetTriggerHandler(new Trigger(TriggerCategory.Effect, 2005), new TriggerHandler((trigger, player, args) => {
                 Page.SetGlobalVariable(trigger.GetVariableName(0), trigger.GetInt(0) - trigger.GetInt(1));
 
@@ -1556,9 +1558,37 @@ namespace EEScript.Interpreter
                 return true;
             }));
 
-            // take the global variable % and multiply it by #.
+            // take the global variable ~ and multiply it by #.
             Page.SetTriggerHandler(new Trigger(TriggerCategory.Effect, 2007), new TriggerHandler((trigger, player, args) => {
                 Page.SetGlobalVariable(trigger.GetVariableName(0), trigger.GetInt(0) * trigger.GetInt(1));
+
+                return true;
+            }));
+            
+            // take the triggering player's variable % and divide it by #.
+            Page.SetTriggerHandler(new Trigger(TriggerCategory.Effect, 2008), new TriggerHandler((trigger, player, args) => {
+                ((Player)player).Set(trigger.GetVariableName(0), trigger.GetInt(0) * trigger.GetInt(1));
+
+                return true;
+            }));
+
+            // take the global variable ~ and divide it by #.
+            Page.SetTriggerHandler(new Trigger(TriggerCategory.Effect, 2009), new TriggerHandler((trigger, player, args) => {
+                Page.SetGlobalVariable(trigger.GetVariableName(0), trigger.GetInt(0) * trigger.GetInt(1));
+
+                return true;
+            }));
+
+            // set the triggering player's variable % to a random number between # and #.
+            Page.SetTriggerHandler(new Trigger(TriggerCategory.Effect, 2010), new TriggerHandler((trigger, player, args) => {
+                ((Player)player).Set(trigger.GetVariableName(0), Random.Next(trigger.GetInt(0), trigger.GetInt(1)));
+
+                return true;
+            }));
+
+            // set the global variable ~ to a random number between # and #.
+            Page.SetTriggerHandler(new Trigger(TriggerCategory.Effect, 2011), new TriggerHandler((trigger, player, args) => {
+                Page.SetGlobalVariable(trigger.GetVariableName(0), Random.Next(trigger.GetInt(0), trigger.GetInt(1)));
 
                 return true;
             }));
