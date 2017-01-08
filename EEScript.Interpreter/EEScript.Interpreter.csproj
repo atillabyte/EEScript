@@ -92,4 +92,7 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy "$(TargetDir)*.*" "$(SolutionDir)EEScript.Editor\interpreter" /Y</PostBuildEvent>
+  </PropertyGroup>
 </Project>
