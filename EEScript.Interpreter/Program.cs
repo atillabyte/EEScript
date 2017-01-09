@@ -1024,7 +1024,7 @@ namespace EEScript.Interpreter
             Page.SetTriggerHandler(new Trigger(TriggerCategory.Condition, 2000), new TriggerHandler((trigger, player, args) => {
                 var _player = (Player)player;
 
-                if (_player.Get<object>(trigger.GetVariableName(0)) == trigger.Get(1)) {
+                if (_player.Get<int>(trigger.GetVariableName(0)) == trigger.GetInt(1)) {
                     return true;
                 }
 
@@ -1038,8 +1038,10 @@ namespace EEScript.Interpreter
                 if (_trigger == null)
                     return false;
 
-                if (_trigger.Value == trigger.Get(1)) {
-                    return true;
+                if (_trigger.Value is int) {
+                    if ((int)_trigger.Value == trigger.GetInt(1)) {
+                        return true;
+                    }
                 }
 
                 return false;
@@ -1482,6 +1484,20 @@ namespace EEScript.Interpreter
                 return true;
             }));
 
+            // enable spectating in the world.
+            Page.SetTriggerHandler(new Trigger(TriggerCategory.Effect, 176), new TriggerHandler((trigger, player, args) => {
+                Room.Of(Client).SetAllowSpectating(true);
+
+                return true;
+            }));
+
+            // disable spectating in the world.
+            Page.SetTriggerHandler(new Trigger(TriggerCategory.Effect, 177), new TriggerHandler((trigger, player, args) => {
+                Room.Of(Client).SetAllowSpectating(false);
+
+                return true;
+            }));
+
             // change the world curse limit to #.
             Page.SetTriggerHandler(new Trigger(TriggerCategory.Effect, 190), new TriggerHandler((trigger, player, args) => {
                 Room.Of(Client).SetCurseLimit(trigger.GetInt(0));
@@ -1492,6 +1508,20 @@ namespace EEScript.Interpreter
             // change the world zombie limit to #.
             Page.SetTriggerHandler(new Trigger(TriggerCategory.Effect, 191), new TriggerHandler((trigger, player, args) => {
                 Room.Of(Client).SetZombieLimit(trigger.GetInt(0));
+
+                return true;
+            }));
+
+            // clear the current world.
+            Page.SetTriggerHandler(new Trigger(TriggerCategory.Effect, 249), new TriggerHandler((trigger, player, args) => {
+                Room.Of(Client).Clear();
+
+                return true;
+            }));
+
+            // save the current world.
+            Page.SetTriggerHandler(new Trigger(TriggerCategory.Effect, 250), new TriggerHandler((trigger, player, args) => {
+                Room.Of(Client).Save();
 
                 return true;
             }));
