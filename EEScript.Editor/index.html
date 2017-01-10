@@ -2,23 +2,25 @@
 
 <html lang="en">
 <head>
+
 	<script>
-	const Config = require('electron-config');
-	
-	const config = new Config();
-	
-	var app = require('electron').remote; 
-	var dialog = app.dialog;
-	var fs = require('fs');
-	var spawn = require('cross-spawn');
-	var shell = require('electron').shell;
-	
-	// EEScript Version
-	var version = 'v1.1.3';
-	
-	require('electron').webFrame.setZoomFactor(1.2);
+	   const Config = require('electron-config');
+	   
+	   const config = new Config();
+	   
+	   var app = require('electron').remote; 
+	   var dialog = app.dialog;
+	   var fs = require('fs');
+	   var spawn = require('cross-spawn');
+	   var shell = require('electron').shell;
+	   var path = require('path');
+	   
+	   // EEScript Version
+	   var version = 'v1.1.4';
+	   var runningLinux = process.platform === "linux";
+	   
+	   require('electron').webFrame.setZoomFactor(1.2);
 	</script>
-	
 	<meta charset="UTF-8">
 	<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
 
@@ -26,173 +28,173 @@
 	<link href="css/tabs.css?v=2" rel="stylesheet" type="text/css">
 	<link href="css/select.css?v=2" rel="stylesheet" type="text/css">
 	<script>
-	window.$ = window.jQuery = require('jquery');
+	   window.$ = window.jQuery = require('jquery');
 	</script>
 	<style media="screen" type="text/css">
-	       body {
-	           overflow: hidden;
-	           background: #050505;
-	       }
-	       
-	       #editor {
-	           margin: 0;
-	           position: absolute;
-	           top: 0;
-	           bottom: 260px;
-	           left: 0;
-	           right: 0;
-	       }
-	       
-	       #statusbar {
-	           margin: 0;
-	           padding: 0;
-	           position: absolute;
-	           left: 0;
-	           right: 0;
-	           bottom: 0;
-	           height: 20px;
-	           background-color: rgb(24, 24, 24);
-	           color: gray;
-	       }
-	       
-	       .ace_status-indicator {
-	           color: gray;
-	           position: absolute;
-	           right: 0;
-	           border-left: 1px solid;
-	       }
-	       
-	       #editor-tabs {
-	           margin: 0;
-	           padding: 0;
-	           position: absolute;
-	           left: 0;
-	           right: 0;
-	           bottom: 96px;
-	           height: 164px;
-	       }
-	       
-	       #difficulty-selector {
-	           margin: 0;
-	           padding: 0;
-	           position: absolute;
-	           left: 950;
-	           right: 0;
-	           bottom: 93px;
-	           height: 164px;
-	       }
-	       
-	       .tab-content {
-	           margin: 0;
-	           padding: 0;
-	           position: absolute;
-	           left: 0;
-	           right: 0;
-	           bottom: 55px;
-	           height: 148px;
-	       }
-	       
-	       .listbox {
-	           margin: 0px;
-	           width: 100%;
-	           height: 200px;
-	       }
-	       
-	       ::-webkit-scrollbar {
-	         width: 10px;
-	         height: 10px;
-	       }
+	          body {
+	              overflow: hidden;
+	              background: #050505;
+	          }
+	          
+	          #editor {
+	              margin: 0;
+	              position: absolute;
+	              top: 0;
+	              bottom: 260px;
+	              left: 0;
+	              right: 0;
+	          }
+	          
+	          #statusbar {
+	              margin: 0;
+	              padding: 0;
+	              position: absolute;
+	              left: 0;
+	              right: 0;
+	              bottom: 0;
+	              height: 20px;
+	              background-color: rgb(24, 24, 24);
+	              color: gray;
+	          }
+	          
+	          .ace_status-indicator {
+	              color: gray;
+	              position: absolute;
+	              right: 0;
+	              border-left: 1px solid;
+	          }
+	          
+	          #editor-tabs {
+	              margin: 0;
+	              padding: 0;
+	              position: absolute;
+	              left: 0;
+	              right: 0;
+	              bottom: 96px;
+	              height: 164px;
+	          }
+	          
+	          #difficulty-selector {
+	              margin: 0;
+	              padding: 0;
+	              position: absolute;
+	              left: 950;
+	              right: 0;
+	              bottom: 93px;
+	              height: 164px;
+	          }
+	          
+	          .tab-content {
+	              margin: 0;
+	              padding: 0;
+	              position: absolute;
+	              left: 0;
+	              right: 0;
+	              bottom: 55px;
+	              height: 148px;
+	          }
+	          
+	          .listbox {
+	              margin: 0px;
+	              width: 100%;
+	              height: 200px;
+	          }
+	          
+	          ::-webkit-scrollbar {
+	            width: 10px;
+	            height: 10px;
+	          }
 
-	       ::-webkit-scrollbar-track {
-	         background-color: #444;
-	         box-shadow: 0 0 6px black inset;
-	       }
+	          ::-webkit-scrollbar-track {
+	            background-color: #444;
+	            box-shadow: 0 0 6px black inset;
+	          }
 
-	       ::-webkit-scrollbar-thumb {
-	         border-radius: 5px;
-	         background-color: #222;
-	         box-shadow: 0 0 1px black inset;
-	       }
+	          ::-webkit-scrollbar-thumb {
+	            border-radius: 5px;
+	            background-color: #222;
+	            box-shadow: 0 0 1px black inset;
+	          }
 
-	       ::-webkit-scrollbar-thumb:hover {
-	         background-color: #111;
-	         box-shadow: 0 0 2px black inset;
-	       }
-	       
-	       button {
-	           position: absolute;
-	           -webkit-transform: translateX(-50%) translateY(-50%);
-	                   transform: translateX(-50%) translateY(-50%);
-	           text-align: center;
-	       }
+	          ::-webkit-scrollbar-thumb:hover {
+	            background-color: #111;
+	            box-shadow: 0 0 2px black inset;
+	          }
+	          
+	          button {
+	              position: absolute;
+	              -webkit-transform: translateX(-50%) translateY(-50%);
+	                      transform: translateX(-50%) translateY(-50%);
+	              text-align: center;
+	          }
 
-	       button {
-	           padding: 0;
-	           margin: 0;
-	           right: 218px;
-	           bottom: 122px;
-	           z-index: 9;
-	           background-color: #242424;
-	           color: #999;
-	           width: 34px;
-	           height: 28px;
-	           font-size: 16px;
-	           font-family: 'Raleway', sans-serif;
-	           -webkit-transition: .6s;
-	           transition: .6s;
-	           overflow: hidden;
-	           text-align: center;
-	           padding: 0px 8px;
-	           outline: none;
-	           box-shadow: none;
-	           border-color: transparent;
-	           border: 0;
-	           outline: 0;
-	       }
-	       
-	       button:focus {
-	           outline: none;
-	       }
+	          button {
+	              padding: 0;
+	              margin: 0;
+	              right: 218px;
+	              bottom: 122px;
+	              z-index: 9;
+	              background-color: #242424;
+	              color: #999;
+	              width: 34px;
+	              height: 28px;
+	              font-size: 16px;
+	              font-family: 'Raleway', sans-serif;
+	              -webkit-transition: .6s;
+	              transition: .6s;
+	              overflow: hidden;
+	              text-align: center;
+	              padding: 0px 8px;
+	              outline: none;
+	              box-shadow: none;
+	              border-color: transparent;
+	              border: 0;
+	              outline: 0;
+	          }
+	          
+	          button:focus {
+	              outline: none;
+	          }
 
-	       button:hover {
-	           background: #424242;
-	           cursor: pointer;
-	       }
+	          button:hover {
+	              background: #424242;
+	              cursor: pointer;
+	          }
 
-	       button:active {
-	           background-color: #646464;
-	           -webkit-transition: text-shadow 0.4s linear;
-	           -moz-transition: text-shadow 0.4s linear;
-	           -ms-transition: text-shadow 0.4s linear;
-	           -o-transition: text-shadow 0.4s linear;
-	           transition: text-shadow 0.4s linear;
-	       }
-	       
-	       * {
-	           -webkit-user-select: none;
-	           -khtml-user-select: none;
-	           -moz-user-select: -moz-none;
-	           -o-user-select: none;
-	           user-select: none;
-	       }
-	       
-	       input {
-	         background: #222;
-	         border: 1px solid #111;
-	         color: #f5f5f5;
-	       }
+	          button:active {
+	              background-color: #646464;
+	              -webkit-transition: text-shadow 0.4s linear;
+	              -moz-transition: text-shadow 0.4s linear;
+	              -ms-transition: text-shadow 0.4s linear;
+	              -o-transition: text-shadow 0.4s linear;
+	              transition: text-shadow 0.4s linear;
+	          }
+	          
+	          * {
+	              -webkit-user-select: none;
+	              -khtml-user-select: none;
+	              -moz-user-select: -moz-none;
+	              -o-user-select: none;
+	              user-select: none;
+	          }
+	          
+	          input {
+	            background: #222;
+	            border: 1px solid #111;
+	            color: #f5f5f5;
+	          }
 
-	       input:focus {
-	         outline: none;
-	       }
+	          input:focus {
+	            outline: none;
+	          }
 
-	       input::-webkit-input-placeholder {
-	         color: #333;
-	       }
-		   
-		   a {
-			 color: #999;
-		   }
+	          input::-webkit-input-placeholder {
+	            color: #333;
+	          }
+	          
+	          a {
+	            color: #999;
+	          }
 	</style>
 </head>
 
@@ -236,12 +238,12 @@
 				<a href="#" title="tab-areas">Areas</a>
 			</li>
 
-			
+
 			<li>
 				<a href="#" title="tab-filters">Filters</a>
 			</li>
 
-			
+
 			<li>
 				<a href="#" title="tab-effects">Effects</a>
 			</li>
@@ -271,13 +273,13 @@
 				</select>
 			</div>
 
-			
+
 			<div class='tab-content' id="tab-filters">
 				<select class="listbox" id="listbox-filters" size="4">
 				</select>
 			</div>
 
-			
+
 			<div class='tab-content' id="tab-effects">
 				<select class="listbox" id="listbox-effects" size="4">
 				</select>
@@ -310,252 +312,266 @@
 	<div id="statusbar">
 		EEScript Editor
 	</div>
-	
 	<!-- load ace -->
 	<script src="js/ace/src/ace.js">
 	</script> <!-- load ace statusbar extension -->
+	 
 	<script src="js/ace/src/ext-statusbar.js">
 	</script> 
 	<script>
-	   var editor = ace.edit("editor");
-	   var StatusBar = ace.require("ace/ext/statusbar").StatusBar;
+	      var editor = ace.edit("editor");
+	      var StatusBar = ace.require("ace/ext/statusbar").StatusBar;
 
-	   // create a simple selection status indicator
-	   var statusBar = new StatusBar(editor, document.getElementById("statusbar"));
-	   editor.setTheme("ace/theme/tomorrow_night_bright");
-	   editor.session.setMode("ace/mode/eescript");
+	      // create a simple selection status indicator
+	      var statusBar = new StatusBar(editor, document.getElementById("statusbar"));
+	      editor.setTheme("ace/theme/tomorrow_night_bright");
+	      editor.session.setMode("ace/mode/eescript");
 
-	   // set editor options
-	   editor.setOptions({
-	       fontFamily: "Consolas",
-	       fontSize: "10pt",
-	       showPrintMargin: false,
-	       displayIndentGuides: false,
-	   });
+	      // set editor options
+		  if (runningLinux) {
+			  editor.setOptions({
+				  fontFamily: "Inconsolata", // required monospace font
+				  fontSize: "10pt",
+				  showPrintMargin: false,
+				  displayIndentGuides: false,
+			  });
+		  } else {
+			  editor.setOptions({
+				  fontFamily: "Consolas",
+				  fontSize: "10pt",
+				  showPrintMargin: false,
+				  displayIndentGuides: false,
+			 });
+		  }
 
-	   editor.setValue(
-`* Everybody Edits Script ` + version +
+	      editor.setValue(
+	`* Everybody Edits Script ` + version +
 `
 * New Everybody Edits Script
 * Created by 
 
 `);
-	   editor.clearSelection();
-	   
-	   editor.commands.addCommand({
-	           name: 'saveFile',
-	           bindKey: {
-	           win: 'Ctrl-S',
-	           mac: 'Command-S',
-	           sender: 'editor|cli'
-	       },
-	       exec: function(env, args, request) {
-	           savePage(editor.session.getValue());
-	       }
-	   });
-	   
-	   editor.commands.addCommand({
-	           name: 'loadFile',
-	           bindKey: {
-	           win: 'Ctrl-O',
-	           mac: 'Command-O',
-	           sender: 'editor|cli'
-	       },
-	       exec: function(env, args, request) {
-	           dialog.showOpenDialog(function (fileNames) {
-	              if(fileNames === undefined){
-	                   console.log("No file selected");
-	              }else{
-	                   loadPage(fileNames[0]);
-	              }
-	           });
-	       }
-	   });
-	   
+	      editor.clearSelection();
+	      
+	      editor.commands.addCommand({
+	              name: 'saveFile',
+	              bindKey: {
+	              win: 'Ctrl-S',
+	              mac: 'Command-S',
+	              sender: 'editor|cli'
+	          },
+	          exec: function(env, args, request) {
+	              savePage(editor.session.getValue());
+	          }
+	      });
+	      
+	      editor.commands.addCommand({
+	              name: 'loadFile',
+	              bindKey: {
+	              win: 'Ctrl-O',
+	              mac: 'Command-O',
+	              sender: 'editor|cli'
+	          },
+	          exec: function(env, args, request) {
+	              dialog.showOpenDialog(function (fileNames) {
+	                 if(fileNames === undefined){
+	                      console.log("No file selected");
+	                 }else{
+	                      loadPage(fileNames[0]);
+	                 }
+	              });
+	          }
+	      });
+	      
 	</script> 
 	<script>
-	   var spawn = require('child_process').spawn;
-	   var child = null;
+	      var spawn = require('child_process').spawn;
+	      var child = null;
 
-	   var triggerRegex = /\([0-9]{1}\:[0-9]{1,2147483647}\)/;
-	   function insertTrigger(text) {
-	       var category = text.match(triggerRegex)[0].split(':')[0].substring(1);
-	       var spacing = ' '.repeat(category);
+	      var triggerRegex = /\([0-9]{1}\:[0-9]{1,2147483647}\)/;
+	      function insertTrigger(text) {
+	          var category = text.match(triggerRegex)[0].split(':')[0].substring(1);
+	          var spacing = ' '.repeat(category);
 
-	       editor.insert(spacing + text + '\n');
-	   }
-	   
-	   function savePage(content) {
-	       dialog.showSaveDialog(function (fileName) {
-	          if (fileName === undefined){
-	               console.log("no file destination specified, skipping.");
-	               return;
-	          }
-	          
-	          fs.writeFile(fileName, content, function (err) {
-	              if(err){
-	                  alert("Could not save script, "+ err.message);
-	              }
-	              
-	              console.log("Success.");
-	          });
-	       });
-	   }
-	   
-	   function loadPage(filepath){
-	       fs.readFile(filepath, 'utf-8', function (err, data) {
-	             if(err){
-	                 alert("Could not load script, " + err.message);
-	                 return;
+	          editor.insert(spacing + text + '\n');
+	      }
+	      
+	      function savePage(content) {
+	          dialog.showSaveDialog(function (fileName) {
+	             if (fileName === undefined){
+	                  console.log("no file destination specified, skipping.");
+	                  return;
 	             }
 	             
-	             editor.setValue(data);
-	       });
-	   }
-	   
-	   function executePage() {
-	       var email = $('#options-login-email').val();
-	       var password = $('#options-login-password').val();
-	       var world = $('#options-login-world').val();
+	             fs.writeFile(fileName, content, function (err) {
+	                 if(err){
+	                     alert("Could not save script, "+ err.message);
+	                 }
+	                 
+	                 console.log("Success.");
+	             });
+	          });
+	      }
+	      
+	      function loadPage(filepath){
+	          fs.readFile(filepath, 'utf-8', function (err, data) {
+	                if(err){
+	                    alert("Could not load script, " + err.message);
+	                    return;
+	                }
+	                
+	                editor.setValue(data);
+	          });
+	      }
+	      
+	      function executePage() {
+	          var email = $('#options-login-email').val();
+	          var password = $('#options-login-password').val();
+	          var world = $('#options-login-world').val();
 	       
-	       var executablePath = ((process.platform === "linux") ? "mono" : "") + __dirname + "\\interpreter\\EEScript.Interpreter.exe";
-	       var parameters = ['start', '-u=' + email, '-p=' + password, '-w=' + world, '-page=' + editor.session.getValue() + ''];
+	          var executablePath = __dirname + path.sep + "interpreter" + path.sep + "EEScript.Interpreter.exe";
 
-	       child = spawn(executablePath, parameters, { detached: true });
-	       
-	       $("#execute-page").val("running");
-	       $("#execute-page").text("X");
-		   
-		   // save user configuration
-		   config.set('email', email);
-		   config.set('password', password);
-	   }
+	          if (runningLinux) {
+	             child = spawn('mono', [executablePath, 'start', '-u=' + email, '-p=' + password, '-w=' + world, '-page=' + editor.session.getValue() + '']);
+	          }
+			  else {
+	             child = spawn(executablePath, ['start', '-u=' + email, '-p=' + password, '-w=' + world, '-page=' + editor.session.getValue() + ''], 
+	             { detached: true });
+	          }
+
+	          $("#execute-page").val("running");
+	          $("#execute-page").text("X");
+	  
+	          // save user configuration
+	          config.set('email', email);
+	          config.set('password', password);
+	      }
 
 	</script> 
 	<script>
-	   $(document).ready(function() {
-	       $("#content div").hide(); // initially hide all content
-	       $("#tabs li:first").attr("id","current"); // activate first tab
-	       $("#content div:first").fadeIn(); // show first tab content
-	       
-	       $('#tabs a').click(function(e) {
-	           e.preventDefault();        
-	           $("#content div").hide(); // hide all content
-	           $("#tabs li").attr("id",""); // reset ids
-	           $(this).parent().attr("id","current"); // activate this
-	           $('#' + $(this).attr('title')).fadeIn(); // show content for current tab
-	       });
+	      $(document).ready(function() {
+	          $("#content div").hide(); // initially hide all content
+	          $("#tabs li:first").attr("id","current"); // activate first tab
+	          $("#content div:first").fadeIn(); // show first tab content
+	          
+	          $('#tabs a').click(function(e) {
+	              e.preventDefault();        
+	              $("#content div").hide(); // hide all content
+	              $("#tabs li").attr("id",""); // reset ids
+	              $(this).parent().attr("id","current"); // activate this
+	              $('#' + $(this).attr('title')).fadeIn(); // show content for current tab
+	          });
 
-	       // theme options
-	       $("#options-themes").change(function () {
-	           var theme = $("#options-themes :selected").val();
+	          // theme options
+	          $("#options-themes").change(function () {
+	              var theme = $("#options-themes :selected").val();
 
-	           switch(theme) {
-	               case "1":
-	                   editor.setTheme("ace/theme/tomorrow_night_bright");
-	                   break;
-	               case "2":
-	                   editor.setTheme("ace/theme/tomorrow");
-	                   break;
-	           }
-	       });
-	       
-	       // start/stop interpreter
-	       $("#execute-page").click(function(e) {
-	           if ($("#execute-page").val() == "stopped") {
-	               executePage();
-	           } else {
-			   
-					try {
-						process.kill(child.pid);
-					} catch(ex) {
-						console.log(ex.message);
-					}
-					
-	               $("#execute-page").val("stopped");
-	               $("#execute-page").text("▶");
-	           }
-	       });
-	       
-	       $("#options-themes").change();
-		   
-		   // load user configuration
-		   if (config.has('email')) {
-				$('#options-login-email').val(config.get('email'));
-		   }
-		   if (config.has('password')) {
-				$('#options-login-password').val(config.get('password'));
-		   }
-		   
-		   $.ajax({
-			   type: "GET",
-			   url: "https://raw.githubusercontent.com/atillabyte/EEScript/master/config.json?t=" + $.now(),
-			   success: function(response) {
-			        if (response.currentVersion != version) {
-						$("#statusbar").html("EEScript Editor " + version + " - New version available! " + '(<a href="' + response.projectHomePage + '">Project Homepage</a>) (' + response.currentVersion + ')');
-					}
-			   },
-			   dataType: "json"
-		   });
-	       
-	       // add triggers from json
-	       $.ajax({
-	           type: "GET", 
-	           url: 'https://raw.githubusercontent.com/atillabyte/EEScript/master/triggers.json?v=' + version,
-	           success: function(response) {
-	               $.each(response, function(i, trigger) { 
-	                   var category = trigger.category;
-	                   var id = trigger.id;
-	                   var label = trigger.label;
-
-	                   // add trigger to appropriate category
-	                   switch(category) {
-	                       case 0:
-	                           $('#listbox-causes').append($('<option>', {
-	                               text: "(" + category + ":" + id + ") " + label
-	                           }));
-	                           break;
-	                       case 1:
-	                           $('#listbox-conditions').append($('<option>', {
-	                               text: "(" + category + ":" + id + ") " + label
-	                           }));
-	                           break;
-	                       case 3:
-	                           $('#listbox-areas').append($('<option>', {
-	                               text: "(" + category + ":" + id + ") " + label
-	                           }));
-	                           break;
-						   case 4:
-							   $('#listbox-filters').append($('<option>', {
-	                               text: "(" + category + ":" + id + ") " + label
-	                           }));
-							   break;
-	                       case 5:
-	                           $('#listbox-effects').append($('<option>', {
-	                               text: "(" + category + ":" + id + ") " + label
-	                           }));
-	                           break;
+	              switch(theme) {
+	                  case "1":
+	                      editor.setTheme("ace/theme/tomorrow_night_bright");
+	                      break;
+	                  case "2":
+	                      editor.setTheme("ace/theme/tomorrow");
+	                      break;
+	              }
+	          });
+	          
+	          // start/stop interpreter
+	          $("#execute-page").click(function(e) {
+	              if ($("#execute-page").val() == "stopped") {
+	                  executePage();
+	              } else {
+	              
+	                   try {
+	                       process.kill(child.pid);
+	                   } catch(ex) {
+	                       console.log(ex.message);
 	                   }
-	               });
-	       
-	               // add trigger upon double clicking listbox item
-	               $("option").bind("dblclick", function() {
-	                   insertTrigger($(this).text());
+	                   
+	                  $("#execute-page").val("stopped");
+	                  $("#execute-page").text("▶");
+	              }
+	          });
+	          
+	          $("#options-themes").change();
+	          
+	          // load user configuration
+	          if (config.has('email')) {
+	               $('#options-login-email').val(config.get('email'));
+	          }
+	          if (config.has('password')) {
+	               $('#options-login-password').val(config.get('password'));
+	          }
+	          
+	          $.ajax({
+	              type: "GET",
+	              url: "https://raw.githubusercontent.com/atillabyte/EEScript/master/config.json?t=" + $.now(),
+	              success: function(response) {
+	                   if (response.currentVersion != version) {
+	                       $("#statusbar").html("EEScript Editor " + version + " - New version available! " + '(<a href="' + response.projectHomePage + '">Project Homepage<\/a>) (' + response.currentVersion + ')');
+	                   }
+	              },
+	              dataType: "json"
+	          });
+	          
+	          // add triggers from json
+	          $.ajax({
+	              type: "GET", 
+	              url: 'https://raw.githubusercontent.com/atillabyte/EEScript/master/triggers.json?v=' + version,
+	              success: function(response) {
+	                  $.each(response, function(i, trigger) { 
+	                      var category = trigger.category;
+	                      var id = trigger.id;
+	                      var label = trigger.label;
 
-	                   $("#editor").focus();
-	               });
-	           },
-	           dataType: "json"
-	       });
+	                      // add trigger to appropriate category
+	                      switch(category) {
+	                          case 0:
+	                              $('#listbox-causes').append($('<option>', {
+	                                  text: "(" + category + ":" + id + ") " + label
+	                              }));
+	                              break;
+	                          case 1:
+	                              $('#listbox-conditions').append($('<option>', {
+	                                  text: "(" + category + ":" + id + ") " + label
+	                              }));
+	                              break;
+	                          case 3:
+	                              $('#listbox-areas').append($('<option>', {
+	                                  text: "(" + category + ":" + id + ") " + label
+	                              }));
+	                              break;
+	                          case 4:
+	                              $('#listbox-filters').append($('<option>', {
+	                                  text: "(" + category + ":" + id + ") " + label
+	                              }));
+	                              break;
+	                          case 5:
+	                              $('#listbox-effects').append($('<option>', {
+	                                  text: "(" + category + ":" + id + ") " + label
+	                              }));
+	                              break;
+	                      }
+	                  });
+	          
+	                  // add trigger upon double clicking listbox item
+	                  $("option").bind("dblclick", function() {
+	                      insertTrigger($(this).text());
 
-	   });
-	</script>
+	                      $("#editor").focus();
+	                  });
+	              },
+	              dataType: "json"
+	          });
+
+	      });
+	</script> 
 	<script>
-	//open links externally by default
-	$(document).on('click', 'a[href^="http"]', function(event) {
-		event.preventDefault();
-		shell.openExternal(this.href);
-	});
+	   //open links externally by default
+	   $(document).on('click', 'a[href^="http"]', function(event) {
+	       event.preventDefault();
+	       shell.openExternal(this.href);
+	   });
 	</script>
 </body>
 </html>
