@@ -317,7 +317,8 @@
 	</script> <!-- load ace statusbar extension -->
 	 
 	<script src="js/ace/src/ext-statusbar.js">
-	</script> 
+	</script>
+	
 	<script>
 	      var editor = ace.edit("editor");
 	      var StatusBar = ace.require("ace/ext/statusbar").StatusBar;
@@ -374,80 +375,89 @@
 	          },
 	          exec: function(env, args, request) {
 	              dialog.showOpenDialog(function (fileNames) {
-	                 if(fileNames === undefined){
+	                 if(fileNames === undefined) {
 	                      console.log("No file selected");
-	                 }else{
+	                 } else{
 	                      loadPage(fileNames[0]);
 	                 }
 	              });
 	          }
 	      });
 	      
-	</script> 
+	</script>
+	
 	<script>
-	      var spawn = require('child_process').spawn;
-	      var child = null;
-
-	      var triggerRegex = /\([0-9]{1}\:[0-9]{1,2147483647}\)/;
-	      function insertTrigger(text) {
+		var spawn = require('child_process').spawn;
+		var child = null;
+		  
+		var triggerRegex = /\([0-9]{1}\:[0-9]{1,2147483647}\)/;
+		  
+		function insertTrigger(text) {
 	          var category = text.match(triggerRegex)[0].split(':')[0].substring(1);
 	          var spacing = ' '.repeat(category);
-
-	          editor.insert(spacing + text + '\n');
-	      }
-	      
-	      function savePage(content) {
+			  
+			  if (editor.selection.getCursor().column > 0) {
+					editor.navigateLineEnd() // Navigate to end of line
+					editor.insert('\n');
+					editor.insert(spacing + text);
+			  } else {
+					editor.insert(spacing + text);
+					editor.insert('\n');
+			  }
+		}
+		
+		function savePage(content) {
 	          dialog.showSaveDialog(function (fileName) {
-	             if (fileName === undefined){
+	             if (fileName === undefined) {
 	                  console.log("no file destination specified, skipping.");
 	                  return;
 	             }
 	             
 	             fs.writeFile(fileName, content, function (err) {
-	                 if(err){
+	                 if(err) {
 	                     alert("Could not save script, "+ err.message);
 	                 }
 	                 
 	                 console.log("Success.");
 	             });
 	          });
-	      }
+		}
 	      
-	      function loadPage(filepath){
+		function loadPage(filepath) {
 	          fs.readFile(filepath, 'utf-8', function (err, data) {
-	                if(err){
+	                if(err) {
 	                    alert("Could not load script, " + err.message);
 	                    return;
 	                }
 	                
 	                editor.setValue(data);
 	          });
-	      }
+		}
 	      
-	      function executePage() {
-	          var email = $('#options-login-email').val();
-	          var password = $('#options-login-password').val();
-	          var world = $('#options-login-world').val();
+		function executePage() {
+			var email = $('#options-login-email').val();
+			var password = $('#options-login-password').val();
+			var world = $('#options-login-world').val();
 	       
-	          var executablePath = __dirname + path.sep + "interpreter" + path.sep + "EEScript.Interpreter.exe";
+			var executablePath = __dirname + path.sep + "interpreter" + path.sep + "EEScript.Interpreter.exe";
 
-	          if (runningLinux) {
-	             child = spawn('mono', [executablePath, 'start', '-u=' + email, '-p=' + password, '-w=' + world, '-page=' + editor.session.getValue() + '']);
-	          }
-			  else {
-	             child = spawn(executablePath, ['start', '-u=' + email, '-p=' + password, '-w=' + world, '-page=' + editor.session.getValue() + ''], 
-	             { detached: true });
-	          }
+			if (runningLinux) {
+				child = spawn('mono', [executablePath, 'start', '-u=' + email, '-p=' + password, '-w=' + world, '-page=' + editor.session.getValue() + '']);
+			}
+			else {
+				child = spawn(executablePath, ['start', '-u=' + email, '-p=' + password, '-w=' + world, '-page=' + editor.session.getValue() + ''], 
+						{ detached: true });
+			}
 
-	          $("#execute-page").val("running");
-	          $("#execute-page").text("X");
+			$("#execute-page").val("running");
+			$("#execute-page").text("X");
 	  
-	          // save user configuration
-	          config.set('email', email);
-	          config.set('password', password);
-	      }
-
-	</script> 
+			// save user configuration
+			config.set('email', email);
+			config.set('password', password);
+		}
+	</script>
+	
 	<script>
 	      $(document).ready(function() {
 	          $("#content div").hide(); // initially hide all content
@@ -481,7 +491,6 @@
 	              if ($("#execute-page").val() == "stopped") {
 	                  executePage();
 	              } else {
-	              
 	                   try {
 	                       process.kill(child.pid);
 	                   } catch(ex) {
@@ -492,7 +501,7 @@
 	                  $("#execute-page").text("▶");
 	              }
 	          });
-	          
+			  
 	          $("#options-themes").change();
 	          
 	          // load user configuration
@@ -502,7 +511,7 @@
 	          if (config.has('password')) {
 	               $('#options-login-password').val(config.get('password'));
 	          }
-	          
+			  
 	          $.ajax({
 	              type: "GET",
 	              url: "https://raw.githubusercontent.com/atillabyte/EEScript/master/config.json?t=" + $.now(),
@@ -553,7 +562,7 @@
 	                              break;
 	                      }
 	                  });
-	          
+					  
 	                  // add trigger upon double clicking listbox item
 	                  $("option").bind("dblclick", function() {
 	                      insertTrigger($(this).text());
@@ -563,9 +572,9 @@
 	              },
 	              dataType: "json"
 	          });
-
 	      });
-	</script> 
+	</script>
+
 	<script>
 	   //open links externally by default
 	   $(document).on('click', 'a[href^="http"]', function(event) {
