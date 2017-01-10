@@ -129,7 +129,7 @@ namespace EEScript.Interpreter
             PhysicsExtension.LoadInto(Client);
 
             // start interpreter
-            Login.Of(Client).WithClient(Authentication.LogOn(GameId, UsernameOrEmail, AuthenticationKey)).CreateJoinRoom(WorldId);
+            Login.Of(Client).WithoutFutureProof().WithClient(Authentication.LogOn(GameId, UsernameOrEmail, AuthenticationKey)).CreateJoinRoom(WorldId);
 
             Thread.Sleep(Timeout.Infinite);
         }
@@ -167,16 +167,14 @@ namespace EEScript.Interpreter
         [EventListener]
         public static void On(BlockChangeEvent e)
         {
-            var _player = Players.Of(Client).First(x => x.UserId == e.Player.Id);
-
             // Whenever someone moves,
-            Page.Execute(_player, e, 66);
+            Page.Execute(e.Player, e, 66);
 
             // Whenever someone moves into block #,
-            Page.Execute(_player, e, 71);
+            Page.Execute(e.Player, e, 71);
 
             // Whenever someone moves into position (#,#),
-            Page.Execute(_player, e, 73);
+            Page.Execute(e.Player, e, 73);
         }
 
         [EventListener]
@@ -964,6 +962,26 @@ namespace EEScript.Interpreter
                 }
 
                 return false;
+            }));
+
+            // and the key # is currently enabled,
+            Page.SetTriggerHandler(new Trigger(TriggerCategory.Condition, 630), new TriggerHandler((trigger, player, args) => {
+                return Room.Of(Client).IsKeyPressed((Key)trigger.GetInt(0));
+            }));
+
+            // and the key # is not currently enabled,
+            Page.SetTriggerHandler(new Trigger(TriggerCategory.Condition, 631), new TriggerHandler((trigger, player, args) => {
+                return !Room.Of(Client).IsKeyPressed((Key)trigger.GetInt(0));
+            }));
+
+            // and the orange switch # is currently enabled,
+            Page.SetTriggerHandler(new Trigger(TriggerCategory.Condition, 630), new TriggerHandler((trigger, player, args) => {
+                return Room.Of(Client).IsSwitchPressed(trigger.GetInt(0));
+            }));
+
+            // and the orange switch # is not currently enabled,
+            Page.SetTriggerHandler(new Trigger(TriggerCategory.Condition, 631), new TriggerHandler((trigger, player, args) => {
+                return !Room.Of(Client).IsSwitchPressed(trigger.GetInt(0));
             }));
 
             // and the player named {...} is in the world right now,

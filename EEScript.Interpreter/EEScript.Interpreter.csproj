@@ -33,11 +33,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BotBits, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\BotBits.217.0.1\lib\net40\BotBits.dll</HintPath>
+      <HintPath>..\packages\BotBits.218.0.3\lib\net40\BotBits.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="BotBits.Commands, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\BotBits.Commands.1.3.2\lib\net40\BotBits.Commands.dll</HintPath>
+      <HintPath>..\packages\BotBits.Commands.2.0.1\lib\net40\BotBits.Commands.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="BotBitsExt.Afk, Version=1.0.6201.29906, Culture=neutral, processorArchitecture=MSIL">
@@ -48,8 +48,8 @@
       <HintPath>..\packages\BotBitsExt.Movement.1.0.3\lib\net452\BotBitsExt.Movement.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="BotBitsExt.Physics, Version=1.0.6203.37324, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\BotBitsExt.Physics.1.4.4\lib\net40\BotBitsExt.Physics.dll</HintPath>
+    <Reference Include="BotBitsExt.Physics, Version=1.0.6217.25215, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BotBitsExt.Physics.1.4.5\lib\net40\BotBitsExt.Physics.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="CLAP, Version=4.6.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -65,7 +65,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="PlayerIOClient, Version=2.3.6.0, Culture=neutral, PublicKeyToken=c7f7b730653f6a44, processorArchitecture=MSIL">
-      <HintPath>..\packages\PlayerIOClient-Signed.3.2.483\lib\PlayerIOClient.dll</HintPath>
+      <HintPath>..\packages\PlayerIOClient-Signed.3.2.484\lib\PlayerIOClient.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
