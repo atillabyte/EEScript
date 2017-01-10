@@ -965,12 +965,12 @@ namespace EEScript.Interpreter
             }));
 
             // and the key # is currently enabled,
-            Page.SetTriggerHandler(new Trigger(TriggerCategory.Condition, 630), new TriggerHandler((trigger, player, args) => {
+            Page.SetTriggerHandler(new Trigger(TriggerCategory.Condition, 628), new TriggerHandler((trigger, player, args) => {
                 return Room.Of(Client).IsKeyPressed((Key)trigger.GetInt(0));
             }));
 
             // and the key # is not currently enabled,
-            Page.SetTriggerHandler(new Trigger(TriggerCategory.Condition, 631), new TriggerHandler((trigger, player, args) => {
+            Page.SetTriggerHandler(new Trigger(TriggerCategory.Condition, 629), new TriggerHandler((trigger, player, args) => {
                 return !Room.Of(Client).IsKeyPressed((Key)trigger.GetInt(0));
             }));
 
