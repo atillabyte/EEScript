@@ -466,6 +466,26 @@
     },
     {
       "category": 1,
+      "id": 628,
+      "label": "and the key # is currently enabled,"
+    },
+    {
+      "category": 1,
+      "id": 629,
+      "label": "and the key # is not currently enabled,"
+    },
+    {
+      "category": 1,
+      "id": 630,
+      "label": "and the orange switch # is currently enabled,"
+    },
+    {
+      "category": 1,
+      "id": 631,
+      "label": "and the orange switch # is not currently enabled,"
+    },
+    {
+      "category": 1,
       "id": 632,
       "label": "and the player named {...} is in the world right now,"
     },
@@ -761,6 +781,16 @@
     },
     {
       "category": 5,
+      "id": 176,
+      "label": "enable spectating in the world."
+    },
+    {
+      "category": 5,
+      "id": 177,
+      "label": "disable spectating in the world."
+    },
+    {
+      "category": 5,
       "id": 190,
       "label": "change the world curse limit to #."
     },
@@ -768,6 +798,16 @@
       "category": 5,
       "id": 191,
       "label": "change the world zombie limit to #."
+    },
+    {
+      "category": 5,
+      "id": 249,
+      "label": "clear the current world."
+    },
+    {
+      "category": 5,
+      "id": 250,
+      "label": "save the current world."
     },
     {
       "category": 5,
