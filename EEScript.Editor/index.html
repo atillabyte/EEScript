@@ -14,7 +14,7 @@
 	var shell = require('electron').shell;
 	
 	// EEScript Version
-	var version = 'v1.1.2';
+	var version = 'v1.1.3';
 	
 	require('electron').webFrame.setZoomFactor(1.2);
 	</script>
@@ -418,7 +418,7 @@
 	       var password = $('#options-login-password').val();
 	       var world = $('#options-login-world').val();
 	       
-	       var executablePath = __dirname + "\\interpreter\\EEScript.Interpreter.exe";
+	       var executablePath = ((process.platform === "linux") ? "mono" : "") + __dirname + "\\interpreter\\EEScript.Interpreter.exe";
 	       var parameters = ['start', '-u=' + email, '-p=' + password, '-w=' + world, '-page=' + editor.session.getValue() + ''];
 
 	       child = spawn(executablePath, parameters, { detached: true });
