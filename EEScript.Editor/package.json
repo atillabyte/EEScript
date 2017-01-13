@@ -1,6 +1,6 @@
 {
     "name": "eescript-editor",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "description": "EEScript Editor",
     "icon": "editor.ico",
     "main": "main.js",
@@ -17,6 +17,7 @@
         "electron": "^1.4.1",
         "electron-packager": "^8.4.0",
         "electron-prebuilt": "^1.4.13",
+        "jquery": "^3.1.1",
         "fs-jetpack": "^0.10.5"
     },
     "dependencies": {

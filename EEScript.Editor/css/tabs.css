@@ -1,11 +1,11 @@
 #tabs {
-  overflow: auto;
-  width: 100%;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  z-index: 5;
-  position: relative;
+    overflow: auto;
+    width: 100%;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    z-index: 5;
+    position: relative;
 }
 
 #tabs li {
@@ -17,8 +17,7 @@
 #tabs a {
     box-shadow: -4px 0 0 rgba(0, 0, 0, .2);
     background: #101010;
-    /* background: linear-gradient(220deg, transparent 10px, #101010 10px);*/
-    text-shadow: 0 1px 0 rgba(0,0,0,.5);
+    text-shadow: 0 1px 0 rgba(0, 0, 0, .5);
     color: #555;
     float: left;
     font: bold 12px/35px 'Lucida sans', Arial, Helvetica;
@@ -30,7 +29,6 @@
 #tabs a:hover {
     color: #CCC;
     background: #202020;
-    /*background: linear-gradient(220deg, transparent 10px, #242424 10px);*/
 }
 
 #tabs a:focus {
@@ -39,15 +37,14 @@
 
 #tabs #current a {
     background: #202020;
-    /*background: linear-gradient(220deg, transparent 10px, #202020 10px);*/
-    text-shadow: none;    
+    text-shadow: none;
     color: #fff;
 }
 
 #content {
     color: #999;
     background-color: #161616;
-    background-image:         linear-gradient(top, #202020, #252525);
+    background-image: linear-gradient(top, #202020, #252525);
     padding: 20px;
     z-index: 5;
     height: 100%;

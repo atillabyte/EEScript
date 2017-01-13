@@ -5,10 +5,7 @@
 <head>
 
     <script>
-        const Config = require('electron-config');
-
-        const config = new Config();
-
+        var config = new(require('electron-config'));
         var electron = require('electron');
         var remote = require('electron').remote;
         var shell = require('electron').shell;
@@ -29,6 +26,7 @@
         var runningLinux = process.platform === "linux";
 
         electron.webFrame.setZoomFactor(1.2);
+        window.$ = window.jQuery = require('jquery');
     </script>
     <meta charset="UTF-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
@@ -36,9 +34,7 @@
     <title>EEScript Editor</title>
     <link href="css/tabs.css?v=2" rel="stylesheet" type="text/css">
     <link href="css/select.css?v=2" rel="stylesheet" type="text/css">
-    <script>
-        window.$ = window.jQuery = require('jquery');
-    </script>
+
     <style media="screen" type="text/css">
         body {
             overflow: hidden;
