@@ -9,14 +9,12 @@ namespace EEScript.Lexical
 
     internal class Lexer : ILexer
     {
-        public List<TokenDefinition> TokenDefinitions { get; set; } = new List<TokenDefinition>();
-        public Regex EndOfLineRegex = new Regex(@"\r\n|\r|\n", RegexOptions.Compiled);
+        public List<TokenDefinition> Definitions { get; set; } = new List<TokenDefinition>();
+        public Regex TerminatorPattern = new Regex(@"\r\n|\r|\n", RegexOptions.Compiled);
 
-        public Lexer AddDefinition(TokenDefinition definition)
+        public Lexer(List<TokenDefinition> definitions)
         {
-            this.TokenDefinitions.Add(definition);
-
-            return this;
+            this.Definitions = definitions;
         }
 
         public IEnumerable<Token> Tokenize(string source)
@@ -29,7 +27,7 @@ namespace EEScript.Lexical
                 TokenDefinition tokenDefinition = null;
                 Match tokenMatch = null;
 
-                foreach (var definition in this.TokenDefinitions) {
+                foreach (var definition in this.Definitions) {
                     var match = definition.Regex.Match(source, currentIndex);
 
                     if (match.Success && (match.Index - currentIndex) == 0) {
@@ -48,7 +46,7 @@ namespace EEScript.Lexical
                 if (!tokenDefinition.Ignored)
                     yield return new Token(tokenDefinition.Type, value, new TokenPosition(currentIndex, currentLine, currentColumn));
 
-                var terminatorMatch = EndOfLineRegex.Match(value);
+                var terminatorMatch = TerminatorPattern.Match(value);
 
                 if (terminatorMatch.Success) {
                     currentLine += 1;

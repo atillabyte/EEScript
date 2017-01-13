@@ -13,11 +13,16 @@ namespace EEScript
         internal EEScriptEngine Engine { get; set; }
 
         /// <summary>
-        /// A list of variables set globally accessible to any Trigger.
+        /// A list of variables set globally accessible to any <see cref="Trigger"/>.
         /// </summary>
         public List<Variable> Variables { get; set; }
 
-        /// <returns> If true, continue to the next trigger, otherwise stop execution of the current block. </returns>
+        /// <summary>
+        /// The default area if there are none specified during an <see cref="TriggerCategory.Effect"/>.
+        /// </summary>
+        public Area DefaultArea { get; set; } = new Area();
+
+        /// <returns> If true, continue to the next <see cref="Trigger"/>, otherwise stop execution of the current block. </returns>
         public delegate bool TriggerHandler(Trigger trigger, object player, object args);
 
         public delegate object PrivateVariableHandler(Trigger trigger, string key);
@@ -140,7 +145,7 @@ namespace EEScript
                             throw new EEScriptException("You do not have a handler for this trigger.", trigger);
 
                         trigger.TriggeringEntity = triggeringEntity;
-                        trigger.Area = triggerBlock.LastOrDefault(x => x.Category == TriggerCategory.Area)?.Area ?? new Area();
+                        trigger.Area = triggerBlock.LastOrDefault(x => x.Category == TriggerCategory.Area)?.Area ?? DefaultArea;
 
                         // every condition has been met, execute the effect
                         this.Handlers[trigger](trigger, triggeringEntity, additionalArgs);

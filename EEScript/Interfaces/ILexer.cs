@@ -6,7 +6,6 @@ namespace EEScript.Interfaces
 
     internal interface ILexer
     {
-        Lexer AddDefinition(TokenDefinition definition);
         IEnumerable<Token> Tokenize(string source);
     }
 }

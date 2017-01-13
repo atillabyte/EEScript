@@ -38,16 +38,17 @@ namespace EEScript
             if (options == null)
                 _options = new Options();
 
-            _lexer = new Lexer()
-                 .AddDefinition(new TokenDefinition(TokenType.Trigger,         new Regex(@"\([0-9]{1}\:[0-9]{1," + Int32.MaxValue + @"}\)",                            RegexOptions.Compiled)))
-                 .AddDefinition(new TokenDefinition(TokenType.GlobalVariable,  new Regex($@"\{_options.GlobalVariableDeclarationSymbol}[\ba-zA-Z\d\D][\ba-zA-Z\d_]*",  RegexOptions.Compiled)))
-                 .AddDefinition(new TokenDefinition(TokenType.PrivateVariable, new Regex($@"\{_options.PrivateVariableDeclarationSymbol}[\ba-zA-Z\d\D][\ba-zA-Z\d_]*", RegexOptions.Compiled)))
-                 .AddDefinition(new TokenDefinition(TokenType.String,          new Regex(@"\" + _options.StringBeginSymbol + @"(.*?)\" + _options.StringEndSymbol,     RegexOptions.Compiled)))
-                 .AddDefinition(new TokenDefinition(TokenType.Number,          new Regex(@"[-+]?([0-9]*\.[0-9]+|[0-9]+)",                                              RegexOptions.Compiled)))
-                 .AddDefinition(new TokenDefinition(TokenType.Comment,         new Regex(@"\" + _options.CommentSymbol + @".*[\r|\n]",                                 RegexOptions.Compiled), ignored: true))
-                 .AddDefinition(new TokenDefinition(TokenType.Word,            new Regex(@"\w+",                                                                       RegexOptions.Compiled), ignored: true))
-                 .AddDefinition(new TokenDefinition(TokenType.Symbol,          new Regex(@"\W",                                                                        RegexOptions.Compiled), ignored: true))
-                 .AddDefinition(new TokenDefinition(TokenType.Whitespace,      new Regex(@"\s+",                                                                       RegexOptions.Compiled), ignored: true));
+            _lexer = new Lexer(definitions: new List<TokenDefinition>() {
+                new TokenDefinition(TokenType.Trigger,         new Regex(@"\([0-9]{1}\:[0-9]{1," + Int32.MaxValue + @"}\)",                            RegexOptions.Compiled)),
+                new TokenDefinition(TokenType.GlobalVariable,  new Regex($@"\{_options.GlobalVariableDeclarationSymbol}[\ba-zA-Z\d\D][\ba-zA-Z\d_]*",  RegexOptions.Compiled)),
+                new TokenDefinition(TokenType.PrivateVariable, new Regex($@"\{_options.PrivateVariableDeclarationSymbol}[\ba-zA-Z\d\D][\ba-zA-Z\d_]*", RegexOptions.Compiled)),
+                new TokenDefinition(TokenType.String,          new Regex(@"\" + _options.StringBeginSymbol + @"(.*?)\" + _options.StringEndSymbol,     RegexOptions.Compiled)),
+                new TokenDefinition(TokenType.Number,          new Regex(@"[-+]?([0-9]*\.[0-9]+|[0-9]+)",                                              RegexOptions.Compiled)),
+                new TokenDefinition(TokenType.Comment,         new Regex(@"\" + _options.CommentSymbol + @".*[\r|\n]",                                 RegexOptions.Compiled), ignored: true),
+                new TokenDefinition(TokenType.Word,            new Regex(@"\w+",                                                                       RegexOptions.Compiled), ignored: true),
+                new TokenDefinition(TokenType.Symbol,          new Regex(@"\W",                                                                        RegexOptions.Compiled), ignored: true),
+                new TokenDefinition(TokenType.Whitespace,      new Regex(@"\s+",                                                                       RegexOptions.Compiled), ignored: true)
+            });
 
             _parser = new Parser(lexer: _lexer);
             _pages = new List<Page>();

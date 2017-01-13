@@ -15,7 +15,7 @@ namespace EEScript.Interpreter
 {
     using static Page;
     using Enums;
-    using EEPhysics;
+    using Helpers;
 
     class Program
     {
@@ -80,6 +80,7 @@ namespace EEScript.Interpreter
 
     public class EEScriptInterpreter
     {
+        public static Client PlayerIOClient { get; set; }
         public static BotBitsClient Client { get; set; }
         public static EEScriptEngine Engine { get; set; }
 
@@ -128,8 +129,11 @@ namespace EEScript.Interpreter
             MovementExtension.LoadInto(Client);
             PhysicsExtension.LoadInto(Client);
 
+            // load client
+            PlayerIOClient = Authentication.LogOn(GameId, UsernameOrEmail, AuthenticationKey);
+
             // start interpreter
-            Login.Of(Client).WithoutFutureProof().WithClient(Authentication.LogOn(GameId, UsernameOrEmail, AuthenticationKey)).CreateJoinRoom(WorldId);
+            Login.Of(Client).WithoutFutureProof().WithClient(PlayerIOClient).CreateJoinRoom(WorldId);
 
             Thread.Sleep(Timeout.Infinite);
         }
@@ -138,6 +142,16 @@ namespace EEScript.Interpreter
         [EventListener]
         public static void On(JoinCompleteEvent e)
         {
+            // setup default area
+            {
+                Page.DefaultArea = new Area();
+
+                for (var x = 0; x < Blocks.Of(Client).Width; x++) {
+                    for (var y = 0; y < Blocks.Of(Client).Height; y++)
+                        Page.DefaultArea.Points.Add(new Point(x, y));
+                }
+            }
+
             // When everything has started up,
             Page.Execute(null, e, 1);
         }
@@ -1576,7 +1590,7 @@ namespace EEScript.Interpreter
                 return true;
             }));
 
-            // copy the block(s) offset to (#,#).
+            // copy the block(s) in the current world offset to (#,#).
             Page.SetTriggerHandler(new Trigger(TriggerCategory.Effect, 258), new TriggerHandler((trigger, player, args) => {
                 if (trigger.Area == null)
                     return false;
@@ -1584,7 +1598,7 @@ namespace EEScript.Interpreter
                 var offsetX = trigger.GetInt(0);
                 var offsetY = trigger.GetInt(1);
 
-                var topLeftPoint = trigger.Area.Points.OrderByDescending(b => b.X).OrderByDescending(b => b.Y).Reverse().First();
+                var topLeftPoint = trigger.Area.Points?.OrderByDescending(b => b.X).OrderByDescending(b => b.Y).Reverse().First();
 
                 foreach (var point in trigger.Area.Points) {
                     var block = Blocks.Of(Client).FirstOrDefault(b => b.X == point.X && b.Y == point.Y);
@@ -1592,6 +1606,29 @@ namespace EEScript.Interpreter
 
                     Blocks.Of(Client).Place(offset.X, offset.Y, block.Background.Block);
                     Blocks.Of(Client).Place(offset.X, offset.Y, block.Foreground.Block);
+                }
+
+                return true;
+            }));
+
+            // copy the saved block(s) in the world {...} offset to (#,#).
+            Page.SetTriggerHandler(new Trigger(TriggerCategory.Effect, 259), new TriggerHandler((trigger, player, args) => {
+                if (trigger.Area == null)
+                    return false;
+
+                var worldId = trigger.GetString(0);
+                var offsetX = trigger.GetInt(1);
+                var offsetY = trigger.GetInt(2);
+
+                var world = Login.Of(Client).WithoutFutureProof().WithClient(PlayerIOClient).LoadWorld(worldId);
+                var topLeftPoint = trigger.Area.Points?.OrderByDescending(b => b.X).OrderByDescending(b => b.Y).Reverse().First();
+
+                foreach (var point in trigger.Area.Points) {
+                    var block = world.FirstOrDefault(b => b.X == point.X && b.Y == point.Y);
+                    var offset = new Point(offsetX + (block.X - topLeftPoint.X), offsetY + (block.Y - topLeftPoint.Y));
+
+                    Blocks.Of(Client).Place(offset.X, offset.Y, block.Background);
+                    Blocks.Of(Client).Place(offset.X, offset.Y, block.Foreground);
                 }
 
                 return true;
@@ -1750,7 +1787,6 @@ namespace EEScript.Interpreter
 
                 return true;
             }));
-
             #endregion
         }
         #endregion
