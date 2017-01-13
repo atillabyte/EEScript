@@ -1,7 +1,8 @@
 {
     "name": "eescript-editor",
-    "version": "1.1.8",
+    "version": "1.2.0",
     "description": "EEScript Editor",
+    "icon": "editor.ico",
     "main": "main.js",
     "scripts": {
         "start": "electron ."
@@ -15,11 +16,13 @@
     "devDependencies": {
         "electron": "^1.4.1",
         "electron-packager": "^8.4.0",
-        "electron-prebuilt": "^1.4.13"
+        "electron-prebuilt": "^1.4.13",
+        "fs-jetpack": "^0.10.5"
     },
     "dependencies": {
         "cross-spawn": "^5.0.0",
         "electron-config": "^0.2.1",
-        "jquery": "^3.1.1"
+        "jquery": "^3.1.1",
+        "fs-jetpack": "^0.10.5"
     }
 }

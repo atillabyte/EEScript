@@ -19,6 +19,11 @@
         var app = remote.app;
         var dialog = remote.dialog;
 
+        // end interpreter before exit
+        app.on('before-quit', () => {
+            endInterpreter();
+        });
+
         // EEScript Version
         var version = "v" + app.getVersion();
         var runningLinux = process.platform === "linux";
