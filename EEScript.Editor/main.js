@@ -13,7 +13,7 @@ let mainWindow
 
 function createWindow() {
     // Create the browser window.
-    mainWindow = new BrowserWindow({ width: 1200, height: 740, minWidth: 1064, minHeight: 600, darkTheme: true })
+    mainWindow = new BrowserWindow({ width: 1200, height: 740, minWidth: 1064, minHeight: 600, darkTheme: true, icon: __dirname + '/editor.ico' })
 
     mainWindow.setMenu(null);
     // and load the index.html of the app.
@@ -22,6 +22,7 @@ function createWindow() {
         protocol: 'file:',
         slashes: true
     }))
+
 
     // Open the DevTools.
     // mainWindow.webContents.openDevTools()

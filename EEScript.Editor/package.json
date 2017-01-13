@@ -1,25 +1,25 @@
 {
-  "name": "eescript-editor",
-  "version": "v1.1.6",
-  "description": "EEScript Editor",
-  "main": "main.js",
-  "scripts": {
-    "start": "electron ."
-  },
-  "repository": "https://github.com/atillabyte/EEScript",
-  "keywords": [
-    "eescript",
-    "eescript editor"
-  ],
-  "author": "Atilla Lonny",
-  "devDependencies": {
-    "electron": "^1.4.1",
-    "electron-packager": "^8.4.0",
-    "electron-prebuilt": "^1.4.13"
-  },
-  "dependencies": {
-    "cross-spawn": "^5.0.0",
-    "electron-config": "^0.2.1",
-    "jquery": "^3.1.1"
-  }
+    "name": "eescript-editor",
+    "version": "v1.1.7",
+    "description": "EEScript Editor",
+    "main": "main.js",
+    "scripts": {
+        "start": "electron ."
+    },
+    "repository": "https://github.com/atillabyte/EEScript",
+    "keywords": [
+        "eescript",
+        "eescript editor"
+    ],
+    "author": "Atilla Lonny",
+    "devDependencies": {
+        "electron": "^1.4.1",
+        "electron-packager": "^8.4.0",
+        "electron-prebuilt": "^1.4.13"
+    },
+    "dependencies": {
+        "cross-spawn": "^5.0.0",
+        "electron-config": "^0.2.1",
+        "jquery": "^3.1.1"
+    }
 }
