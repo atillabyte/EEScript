@@ -3,7 +3,6 @@
 <html lang="en">
 
 <head>
-
     <script>
         var config = new(require('electron-config'));
         var electron = require('electron');
@@ -28,12 +27,13 @@
         electron.webFrame.setZoomFactor(1.2);
         window.$ = window.jQuery = require('jquery');
     </script>
+
     <meta charset="UTF-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
 
     <title>EEScript Editor</title>
-    <link href="css/tabs.css?v=2" rel="stylesheet" type="text/css">
-    <link href="css/select.css?v=2" rel="stylesheet" type="text/css">
+    <link href="css/tabs.css" rel="stylesheet" type="text/css">
+    <link href="css/select.css" rel="stylesheet" type="text/css">
 
     <style media="screen" type="text/css">
         body {
@@ -230,7 +230,6 @@
 		</select></label>
     </div>
 
-
     <div id="editor-tabs">
         <ul id="tabs">
             <li>
@@ -317,54 +316,40 @@
         </div>
     </div>
 
-
     <div id="statusbar">
         EEScript Editor
     </div>
+
     <!-- load ace -->
     <script src="js/ace/src/ace.js">
     </script>
-    <!-- load ace statusbar extension -->
 
+    <!-- load ace statusbar extension -->
     <script src="js/ace/src/ext-statusbar.js">
     </script>
 
+    <!-- Editor Configuration -->
     <script>
         var editor = ace.edit("editor");
         var StatusBar = ace.require("ace/ext/statusbar").StatusBar;
 
         // create a simple selection status indicator
         var statusBar = new StatusBar(editor, document.getElementById("statusbar"));
-        editor.setTheme("ace/theme/tomorrow_night_bright");
-        editor.session.setMode("ace/mode/eescript");
 
         // set editor options
-        if (runningLinux) {
-            editor.setOptions({
-                fontFamily: "Inconsolata", // required monospace font
-                fontSize: "10pt",
-                showPrintMargin: false,
-                displayIndentGuides: false,
-            });
-        } else {
-            editor.setOptions({
-                fontFamily: "Consolas",
-                fontSize: "10pt",
-                showPrintMargin: false,
-                displayIndentGuides: false,
-            });
-        }
-
-        editor.setValue(
-            `* Everybody Edits Script ` + version +
-            `
-* New Everybody Edits Script
-* Created by 
-
-`);
-        editor.clearSelection();
-
+        editor.setTheme("ace/theme/tomorrow_night_bright");
+        editor.session.setMode("ace/mode/eescript");
         editor.$blockScrolling = Infinity;
+
+        editor.setOptions({
+            fontFamily: (runningLinux) ? "Inconsolata" : "Consolas", // required monospace font
+            fontSize: "10pt",
+            showPrintMargin: false,
+            displayIndentGuides: false,
+        });
+
+        editor.setValue(`* Everybody Edits Script ${version}\n* New Everybody Edits Script\n* Created by \n\n`);
+        editor.clearSelection();
 
         editor.commands.addCommand({
             name: 'saveFile',
@@ -426,11 +411,11 @@
         });
     </script>
 
+    <!-- Functions -->
     <script>
+        var triggerRegex = /\([0-9]{1}\:[0-9]{1,2147483647}\)/;
         var spawn = require('child_process').spawn;
         var child = null;
-
-        var triggerRegex = /\([0-9]{1}\:[0-9]{1,2147483647}\)/;
 
         function isInterpreterRunning() {
             if ($("#execute-page").val() == "running")
@@ -561,6 +546,7 @@
         }
     </script>
 
+    <!-- User Interface -->
     <script>
         $(document).ready(function() {
             $("#content div").hide(); // initially hide all content
@@ -573,6 +559,12 @@
                 $("#tabs li").attr("id", ""); // reset ids
                 $(this).parent().attr("id", "current"); // activate this
                 $('#' + $(this).attr('title')).fadeIn(); // show content for current tab
+            });
+
+            //open links externally by default
+            $(document).on('click', 'a[href^="http"]', function(event) {
+                event.preventDefault();
+                shell.openExternal(this.href);
             });
 
             // theme options
@@ -601,12 +593,8 @@
             $("#options-themes").change();
 
             // load user configuration
-            if (config.has('email')) {
-                $('#options-login-email').val(config.get('email'));
-            }
-            if (config.has('password')) {
-                $('#options-login-password').val(config.get('password'));
-            }
+            $('#options-login-email').val(config.get('email'));
+            $('#options-login-password').val(config.get('password'));
 
             // check for updates
             $.ajax({
@@ -614,7 +602,7 @@
                 url: "https://raw.githubusercontent.com/atillabyte/EEScript/master/config.json?t=" + $.now(),
                 success: function(response) {
                     if (response.currentVersion != version) {
-                        $("#statusbar").html("EEScript Editor " + version + " - New version available! " + '(<a href="' + response.projectHomePage + '">Project Homepage<\/a>) (' + response.currentVersion + ')');
+                        $("#statusbar").html(`EESCript Editor ${version} - A new version is available! (${response.currentVersion}). Visit the <a href="${response.projectHomePage}">Project Homepage</a> for more details.`);
                     }
                 },
                 dataType: "json"
@@ -637,14 +625,6 @@
                 },
                 dataType: "json"
             });
-        });
-    </script>
-
-    <script>
-        //open links externally by default
-        $(document).on('click', 'a[href^="http"]', function(event) {
-            event.preventDefault();
-            shell.openExternal(this.href);
         });
     </script>
 </body>
