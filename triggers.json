@@ -832,7 +832,12 @@
     {
       "category": 5,
       "id": 258,
-      "label": "copy the block(s) offset to (#,#)."
+      "label": "copy the block(s) in the current world offset to (#,#)."
+    },
+    {
+      "category": 5,
+      "id": 259,
+      "label": "copy the saved block(s) in the world {...} offset to (#,#)."
     },
     {
       "category": 5,
